@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio | El mejor combo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div id="app" v-cloak>
+<!-- ENCABEZADO -->
+    <header id="user" v-if="listClient.role == 'ADMIN' || listClient.role == 'USER'">
+        <a href="" class="d-block link-light text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;"><div id="avatar"></div></a>
+        <a class="d-block text-decoration-none name-profile">{{listClient.firstname}} {{listClient.lastname}}</a>
+        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+            <li><a class="dropdown-item go-to" href="">Perfil</a></li>
+            <li><a class="dropdown-item go-to" href="">Mis compras</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item go-to" href="" @click.prevent="signOut">Cerrar sesión <img src="./assets/logout.png" alt="Sign out"></a></li>
+        </ul>
+    </header>
+    <header class="row g-0" id="sign-in" v-else>
+        <div class="col-12 sign-in">
+            <a href="sign-in.html" class="sign-in">Iniciar sesión / Crear cuenta</a>
+        </div>
+    </header>
+<!-- BARRA DE NAVEGACIÓN -->
+    <nav class="navbar navbar-expand-lg navbar-1">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html"><img src="./assets/logo-no-fondo.png" alt="Logo" class="logo"></a>
+            <button class="navbar-toggler navbar" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span id="menu">&equiv;</span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link navbar-menu-active" id="index" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbar-menu" href="">Hombres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbar-menu" href="">Mujeres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbar-menu" href="">Niños/as</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbar-menu" href="">Bebés</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<!-- CONTENIDO -->
+    <main>
+
+    </main>
+<!-- PIE DE PÁGINA -->
+    <footer>
+        <section id="social">
+            <a href="https://www.facebook.com/" target="_blank" class="social-icon"><img class="social" src="./assets/facebook.png" alt="Facebook"></a>
+            <a href="https://m.me/hectoremmanuel.rolon" target="_blank" class="social-icon"><img class="social" src="./assets/messanger.png" alt="Messanger"></a>
+            <a href="https://www.instagram.com" target="_blank" class="social-icon"><img class="social" src="./assets/instagram.png" alt="Instagram"></a>
+            <a href="https://wa.me/5491134254092" target="_blank" class="social-icon-2"><img class="social" src="./assets/whatsapp.png" alt="WhatsApp"></a>
+        </section>
+        <section class="row g-0" id="information-nav">
+            <div class="col-md-6 align-self-center">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.0192764541443!2d-58.380944185195254!3d-34.60367406500191!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccace8cd0b1f1%3A0x918a315016aaff81!2sAv.%20Corrientes%20848%2C%20C1043%20AAV%2C%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1641302111734!5m2!1ses!2sar" width="100%" height="75%" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <nav class="navbar navbar-expand-lg col-md-3 align-self-start">
+                <div class="container-fluid position-relative">
+                    <div class="flex-shrink-0 position-relative top-0 start-50 translate-middle-x navbar-2">
+                        <p class="fs-5 fw-semibold title-nav-2">MENÚ PRINCIPAL</p>
+                        <ul class="list-unstyled ps-0">
+                            <li class="mb-1 footer">
+                                <a class="nav-link footer" href="">Hombres</a>
+                            </li>
+                            <li class="mb-1 footer">
+                                <a class="nav-link footer" href="">Mujeres</a>
+                            </li>
+                            <li class="mb-1 footer">
+                                <a class="nav-link footer" href="">Niños/as</a>
+                            </li>
+                            <li class="mb-1 footer">
+                                <a class="nav-link footer" href="">Bebés</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <nav class="navbar navbar-expand-lg col-md-3 align-self-start">
+                <div class="container-fluid position-relative">
+                    <div class="flex-shrink-0 position-relative top-0 start-50 translate-middle-x navbar-2">
+                        <p class="fs-5 fw-semibold title-nav-2">OTROS LINKS</p>
+                        <ul class="list-unstyled ps-0">
+                            <li class="mb-1 footer">
+                                <a class="nav-link footer" href="">Contacto</a>
+                            </li>
+                            <li class="mb-1 footer">
+                                <a class="nav-link footer" href="">Sobre nosotros</a>
+                            </li>
+                            <li class="mb-1 footer" v-if="listClient.role == 'ADMIN' || listClient.role == 'USER'">
+                                <a class="nav-link footer" href="" @click.prevent="signOut">Cerrar sesión <img src="./assets/logout.png" alt="Sign out"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </section>
+        <section id="copy-right">
+            <p id="footer-page">&copy; {{momentFooter(new Date())}} El mejor combo | Todos los derechos reservados.</p>
+        </section>
+    </footer>
+</div>
+<!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+<!-- VUE.JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./scripts/main.js"></script>
+</body>
+</html>

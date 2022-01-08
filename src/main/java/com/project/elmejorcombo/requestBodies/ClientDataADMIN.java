@@ -1,0 +1,37 @@
+package com.project.elmejorcombo.requestBodies;
+
+import com.project.elmejorcombo.models.ClientRole;
+
+public class ClientDataADMIN {
+
+    private String firstname;
+    private String lastname;
+    private String username;
+    private String email;
+    private ClientRole role;
+
+    //CONSTRUCTORES
+    public ClientDataADMIN() { }
+
+    public ClientDataADMIN(String firstname, String lastname, String username, String email, ClientRole role) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.email = email;
+        this.role = role;
+    }
+
+    //GETTER
+    public String getFirstname() {return firstname;}
+    public String getLastname() {return lastname;}
+    public String getUsername() {return username;}
+    public String getEmail() {return email;}
+    public ClientRole getRole() {return role;}
+
+    //SETTER
+    public void setFirstname(String firstname) {this.firstname = firstname;}
+    public void setLastname(String lastname) {this.lastname = lastname;}
+    public void setUsername(String username) {this.username = username;}
+    public void setEmail(String email) {this.email = email;}
+    public void setRole(ClientRole role) {this.role = role;}
+}
