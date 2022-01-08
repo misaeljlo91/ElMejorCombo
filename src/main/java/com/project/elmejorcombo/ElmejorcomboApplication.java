@@ -23,8 +23,8 @@ public class ElmejorcomboApplication {
 	@Bean
 	public CommandLineRunner initData(ClientRepository clientRepository){
 		return (args) -> {
-			Client client1 = new Client("Emmanuel", "Rolón", "emmarolon250", "emmanuelrolon250@gmail.com", passwordEncoder.encode("Indemnizacion1989") , ClientRole.ADMIN);
-			Client client2 = new Client("Misael", "López", "misaeljlo91", "misaeljlo91@gmail.com", passwordEncoder.encode("531709Mleo"), ClientRole.ADMIN);
+			Client client1 = new Client("Emmanuel", "Rolón", "emmarolon250", "emmanuelrolon250@gmail.com", passwordEncoder.encode("emma1234") , ClientRole.ADMIN);
+			Client client2 = new Client("Misael", "López", "misaeljlo91", "misaeljlo91@gmail.com", passwordEncoder.encode("misael123"), ClientRole.ADMIN);
 
 			clientRepository.save(client1);
 			clientRepository.save(client2);
