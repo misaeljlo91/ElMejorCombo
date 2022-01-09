@@ -27,10 +27,10 @@ header#signIn{
     user-select: none;
 }
 div.signIn{
-    padding-left: 2rem;
+    padding-left: 2rem !important;
 }
 img.logo{
-    width: 84px;
+    width: 84px !important;
 }
 
 /* MAIN */
@@ -48,7 +48,7 @@ div.content-signIn{
     padding: 2rem !important;
     border-radius: 20px;
 }
-form#sign-in{
+form#sign-in, form#recover-data{
     padding: 1rem;
     margin-left: 25rem !important;
     width: 25rem !important;
@@ -56,7 +56,7 @@ form#sign-in{
     border-radius: 15px;
 }
 label.sign-in{
-    margin: 0 0 .5rem 0;
+    margin: 0 0 .2rem 0;
     font-weight: bold;
 }
 button.sign-in, button.sign-in:hover{
@@ -136,6 +136,30 @@ input.register{
     margin-right: .5rem;
 }
 
+/* RECUPERAR DATOS */
+
+fieldset.recover-data{
+    font-size: x-large !important;
+    font-weight: bold;
+    padding: 0 1rem 0 1rem !important;
+    border-left: 2px solid #973b50;
+    margin: 0 0 1rem 1.5rem !important;
+}
+a.recover, a.recover-2{
+    background-color: #009e93;
+    border: none;
+    color: #000;
+}
+a.recover:hover, a.recover-2:hover{
+    background-color: #009e93;
+    font-weight: bold;
+    text-decoration: underline;
+    color: #000;
+}
+a.recover{
+    margin-right: .5rem;
+}
+
 /* FOOTER */
 
 footer{
@@ -163,7 +187,7 @@ p#footer-page{
     div.content-signIn{
         padding: 2rem 0 2rem 0 !important;
     }
-    form#sign-in{
+    form#sign-in, form#recover-data{
         width: 150% !important;
         margin-left: 19rem !important;
     }
@@ -171,14 +195,25 @@ p#footer-page{
         padding: .2rem !important;
     }
     
+    /* RECUPERAR DATOS */
+
+    div.forgot-password{
+        width: 16.8rem !important;
+    }
 }
 
 @media screen and (max-width: 768px) {
     /* INICIAR SESIÓN */
 
-    form#sign-in{
+    form#sign-in, form#recover-data{
         width: 200% !important;
         margin-left: 11rem !important;
+    }
+
+    /* RECUPERAR DATOS */
+
+    div.forgot-password{
+        width: 16.3rem !important;
     }
 
     /* FOOTER */
@@ -191,9 +226,18 @@ p#footer-page{
 }
 
 @media screen and (max-width: 425px) {
+    /* HEADER */
+
+    div.signIn{
+        padding-left: .8rem !important;
+    }
+    img.logo{
+        width: 72px !important;
+    }
+
     /* INICIAR SESIÓN */
 
-    form#sign-in{
+    form#sign-in, form#recover-data{
         width: auto !important;
         margin-left: 0 !important;
     }
@@ -205,6 +249,12 @@ p#footer-page{
     }
     a.sign{
         font-size: 16px !important;
+    }
+
+    /* RECUPERAR DATOS */
+
+    div.forgot-password{
+        width: 13rem !important;
     }
 
     /* FOOTER */
@@ -235,6 +285,15 @@ p#footer-page{
         width: 14.5rem !important;
     }
 
+    /* RECUPERAR DATOS */
+
+    fieldset.recover-data{
+        font-size: large !important;
+    }
+    div.forgot-password{
+        width: 9.8rem !important;
+    }
+
     /* FOOTER */
     a.social-icon{
         margin-right: 1.5vw !important;
@@ -248,6 +307,15 @@ p#footer-page{
 }
 
 @media screen and (max-width: 320px) {
+    /* HEADER */
+
+    div.signIn{
+        padding-left: .5rem !important;
+    }
+    img.logo{
+        width: 60px !important;
+    }
+
     /* INICIAR SESIÓN */
 
     div.content-signIn{
@@ -256,8 +324,18 @@ p#footer-page{
 
     /* NUEVO REGISTRO */
 
+    fieldset.recover-data{
+        margin: 0 0 1rem .5rem !important;
+        font-size: large !important;
+    }
     div.password{
         width: 11.3rem !important;
+    }
+
+    /* RECUPERAR DATOS */
+
+    div.forgot-password{
+        width: 8.4rem !important;
     }
 
     /* FOOTER */

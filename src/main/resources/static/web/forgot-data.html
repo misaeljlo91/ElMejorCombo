@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar datos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/sign-in.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div id="app" v-cloak>
+<!-- ENCABEZADO -->
+    <header class="row g-0" id="signIn">
+        <div class="col-12 signIn">
+            <a href="index.html" class="sign-in"><img src="./assets/logo-no-fondo.png" alt="Logo" class="logo"></a>
+        </div>
+    </header>
+<!-- CONTENIDO -->
+    <main>    
+    <!-- Iniciar sesión -->
+        <div class="row g-0 content-signIn">
+            <div class="col-md-3 col-sigIn">
+                <form id="recover-data">
+                    <fieldset class="recover-data">Recuperar datos</fieldset>
+                    <p id="emailHelp" class="form-text">Por favor, ingrese nuevamente el correo electrónico con el que se registró en nuestra plataforma.</p>
+                    <div class="form-floating mb-3">
+                        <input v-model="data.email" type="email" class="form-control" id="email-2" aria-describedby="emailHelp" placeholder="name@example.com">
+                        <label for="email-2">Correo electrónico</label>
+                    </div>
+                    <p id="selectHelp" class="form-text">Por favor, seleccione el tipo de dato que desea recuperar.</p>
+                    <div class="mb-3">
+                        <select v-model="data.recover" class="form-select" id="select" aria-describedby="selectHelp" aria-label="Default select example">
+                            <option value="" selected disabled>Seleccione</option>
+                            <option value="Username">Usuario</option>
+                            <option value="Password">Contraseña</option>
+                        </select>
+                    </div>
+                    <div class="form-floating mb-3" v-if="data.recover == 'Username'">
+                        <input v-model="data.username" type="text" class="form-control" id="username" placeholder="Nombre de usuario">
+                        <label for="username">Nombre de usuario</label>
+                    </div>
+                    <div class="row g-0" v-if="data.recover == 'Password'">
+                        <div class="col-10 form-floating mb-3 forgot-password">
+                            <input v-model="data.password" :type="type" class="form-control" id="password" placeholder="Contraseña">
+                            <label for="password">Contraseña</label>
+                        </div>
+                        <div class="col-2">
+                            <button v-if="hidden" class="btn btn-outline-secondary password" type="button" @click="showPassword"><img src="./assets/hidden.png" alt=""></button>
+                            <button v-if="show" class="btn btn-outline-secondary password" type="button" @click="showPassword"><img src="./assets/show.png" alt=""></button>
+                        </div>
+                    </div>
+                    <div class="row g-0" v-if="data.recover == 'Password'">
+                        <div class="col-10 form-floating mb-3 forgot-password">
+                            <input v-model="data.password2" :type="type2" class="form-control" id="password2" placeholder="Repita su contraseña">
+                            <label for="password2">Repita su contraseña</label>
+                        </div>
+                        <div class="col-2">
+                            <button v-if="hidden2" class="btn btn-outline-secondary password" type="button" @click="showPassword2"><img src="./assets/hidden.png" alt=""></button>
+                            <button v-if="show2" class="btn btn-outline-secondary password" type="button" @click="showPassword2"><img src="./assets/show.png" alt=""></button>
+                        </div>
+                    </div>
+                    <div class="form-floating form-signIn">
+                        <a class="btn btn-primary recover" href="" role="button" v-if="data.recover == 'Username'" @click.prevent="forgotUsername">Guardar</a>
+                        <a class="btn btn-primary recover" href="" role="button" v-if="data.recover == 'Password'" @click.prevent="forgotPassword">Guardar</a>
+                        <a class="btn btn-primary recover" role="button" v-if="data.recover == ''">Guardar</a>
+                        <a class="btn btn-primary recover-2" href="sign-in.html" role="button">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+<!-- PIE DE PÁGINA -->
+    <footer>
+        <section id="social">
+            <a href="https://www.facebook.com/" target="_blank" class="social-icon"><img class="social" src="./assets/facebook.png" alt="Facebook"></a>
+            <a href="https://m.me/hectoremmanuel.rolon" target="_blank" class="social-icon"><img class="social" src="./assets/messanger.png" alt="Messanger"></a>
+            <a href="https://www.instagram.com" target="_blank" class="social-icon"><img class="social" src="./assets/instagram.png" alt="Instagram"></a>
+            <a href="https://wa.me/5491134254092" target="_blank" class="social-icon-2"><img class="social" src="./assets/whatsapp.png" alt="WhatsApp"></a>
+        </section>
+        <section id="copy-right">
+            <p id="footer-page">&copy; {{momentFooter(new Date())}} El mejor combo | Todos los derechos reservados.</p>
+        </section>
+    </footer>
+</div>
+<!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+<!-- VUE.JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./scripts/sign-in.js"></script>
+</body>
+</html>

@@ -23,6 +23,7 @@
         <div class="row g-0 content-signIn">
             <div class="col-md-3 col-sigIn">
                 <form id="sign-in" @submit.prevent="signIn">
+                    <fieldset class="recover-data">Iniciar sesión</fieldset>
                     <div class="mb-3">
                         <label for="username2" class="form-label sign-in">Usuario:</label>
                         <input v-model="data.username" type="text" class="form-control" id="username2" placeholder="Usuario" required>

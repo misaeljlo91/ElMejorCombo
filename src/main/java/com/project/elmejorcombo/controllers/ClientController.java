@@ -92,6 +92,52 @@ public class ClientController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PatchMapping("/clients/forgot-username")
+    public ResponseEntity<Object> forgotUsername(
+            @RequestParam String email,
+            @RequestParam String username){
+
+        Client client = clientRepository.findByEmail(email);
+
+        if(email.isEmpty() || username.isEmpty()){
+            return new ResponseEntity<>("Por favor, rellene todos los campos", HttpStatus.FORBIDDEN);
+        }
+
+        if(client == null){
+            return new ResponseEntity<>("Correo electrónico no registrado. Intente nuevamente.", HttpStatus.FORBIDDEN);
+        }
+
+        if(clientRepository.findByUsername(username) != null){
+            return new ResponseEntity<>("Nombre de usuario en uso, intente nuevamente", HttpStatus.FORBIDDEN);
+        }
+
+        client.setUsername(username);
+
+        clientRepository.save(client);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PatchMapping("/clients/forgot-password")
+    public ResponseEntity<Object> forgotPassword(
+            @RequestParam String email,
+            @RequestParam String password){
+
+        Client client = clientRepository.findByEmail(email);
+
+        if(client == null){
+            return new ResponseEntity<>("Correo electrónico no registrado. Intente nuevamente.", HttpStatus.FORBIDDEN);
+        }
+
+        if(password.length() < 8 || password.length() > 16){
+            return new ResponseEntity<>("Su contraseña debe contener entre 8 y 16 caracteres", HttpStatus.FORBIDDEN);
+        }
+
+        client.setPassword(passwordEncoder.encode(password));
+
+        clientRepository.save(client);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     //API Rest CLIENT CURRENT
     @GetMapping("/clients/current")
     public ClientDTO getClientCurrent(Authentication authentication){

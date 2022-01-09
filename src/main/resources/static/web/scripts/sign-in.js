@@ -7,7 +7,8 @@ const app = Vue.createApp({
                 username: "",
                 email: "",
                 password: "",
-                password2: ""
+                password2: "",
+                recover: ""
             },
             error: false,
             type: "password", hidden: true, show: false,
@@ -87,6 +88,51 @@ const app = Vue.createApp({
                     icon: "error"
                 })
             })
+        },
+        forgotUsername(){
+            axios.patch("/api/clients/forgot-username",`email=${this.data.email}&username=${this.data.username}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+            .then(response => {
+                swal({
+                    title: "Cambio de usuario exitoso",
+                    icon: "success",
+                    button: true
+                })
+                .then(confirmation => {
+                    window.location.replace("sign-in.html")
+                })
+            })
+            .catch(error => {
+                swal({
+                    text: error.response.data,
+                    icon: "error"
+                })
+            })
+        },
+        forgotPassword(){
+            if(this.data.password === this.data.password2){
+                axios.patch("/api/clients/forgot-password",`email=${this.data.email}&password=${this.data.password}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                .then(response => {
+                    swal({
+                        title: "Cambio de contraseña exitoso",
+                        icon: "success",
+                        button: true
+                    })
+                    .then(confirmation => {
+                        window.location.replace("sign-in.html")
+                    })
+                })
+                .catch(error => {
+                    swal({
+                        text: error.response.data,
+                        icon: "error"
+                    })
+                })
+            }else{
+                swal({
+                    text: "Las contraseñas ingresadas no coinciden.",
+                    icon: "error"
+                })
+            }
         },
         showPassword(){
             if(this.type === "password"){
