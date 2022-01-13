@@ -154,4 +154,6 @@ public class ClientController {
         Client signClient = clientRepository.findByEmail(authentication.getName());
         return clientRepository.findById(id).map(client1 -> new ClientDTO(client1)).orElse(null);
     }
+
+    //FALTAN SERVICIOS PARA MODIFICAR LOS DATOS
 }
