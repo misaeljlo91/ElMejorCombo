@@ -18,6 +18,7 @@
         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
             <li><a class="dropdown-item go-to" href="">Perfil</a></li>
             <li><a class="dropdown-item go-to" href="">Mis compras</a></li>
+            <li v-if="listClient.role == 'ADMIN'"><a class="dropdown-item go-to" href="manager.html">Panel de adminitrador</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item go-to" href="" @click.prevent="signOut">Cerrar sesión <img src="./assets/logout.png" alt="Sign out"></a></li>
         </ul>
@@ -51,6 +52,17 @@
                     <li class="nav-item">
                         <a class="nav-link navbar-menu" href="">Bebés</a>
                     </li>
+                </ul>
+            </div>
+            <div id="user-desktop" v-if="listClient.role == 'ADMIN' || listClient.role == 'USER'">
+                <a href="" class="d-block link-light text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;"><div id="avatar"></div></a>
+                <a class="d-block text-decoration-none name-profile">{{listClient.firstname}} {{listClient.lastname}}</a>
+                <ul class="dropdown-menu text-small shadow-2" aria-labelledby="dropdownUser2">
+                    <li><a class="dropdown-item go-to" href="">Perfil</a></li>
+                    <li><a class="dropdown-item go-to" href="">Mis compras</a></li>
+                    <li v-if="listClient.role == 'ADMIN'"><a class="dropdown-item go-to" href="manager.html">Panel de adminitrador</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item go-to" href="" @click.prevent="signOut">Cerrar sesión <img src="./assets/logout.png" alt="Sign out"></a></li>
                 </ul>
             </div>
         </div>

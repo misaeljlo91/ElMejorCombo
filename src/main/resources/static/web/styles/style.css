@@ -41,6 +41,7 @@ a.sign-in:hover{
 /* HEADER - USER */
 
 header#user{
+    display: none;
     background: linear-gradient(to right, #87e1dd, #009e93);
     padding: .5rem 2rem 1.5rem 0;
     height: 4rem;
@@ -60,8 +61,11 @@ a.name-profile{
     font-size: larger !important;
     margin: 1.5vh 1vw 0 0 !important;
 }
-ul.shadow{
+ul.shadow, ul.shadow-2{
     background-color: #c88b96;
+}
+ul.shadow-2{
+    margin-left: 72rem !important;
 }
 a.go-to{
     font-weight: bold;
@@ -157,6 +161,11 @@ p#footer-page{
 }
 
 @media screen and (max-width: 1024px) {
+    /* HEADER - USER */
+    ul.shadow-2{
+        margin-left: 51rem !important;
+    }
+
     /* FOOTER */
     div.navbar-2{
         width: 200px !important;
@@ -164,6 +173,14 @@ p#footer-page{
 }
 
 @media screen and (max-width: 768px) {
+    /* HEADER - USER */
+    header#user{
+        display: block;
+    }
+    div#user-desktop{
+        display: none;
+    }
+
     /* BARRA DE NAVEGACIÓN */
     a.navbar-menu{
         background: none !important;
@@ -175,6 +192,7 @@ p#footer-page{
     a#index{
         display: none;
     }
+
     /* FOOTER */
     a.social-icon{
         margin-right: .8vw !important;

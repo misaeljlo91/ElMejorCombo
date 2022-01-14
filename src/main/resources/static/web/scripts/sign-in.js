@@ -26,9 +26,15 @@ const app = Vue.createApp({
                 window.location.replace("index.html")
             })
             .catch(error => {
-                this.error = true
-                this.data.username = ""
-                this.data.password = ""
+                swal({
+                    title: "¡Atención!",
+                    text: "Usuario o contraseña incorrecta",
+                    icon: "error"
+                })
+                .then(confrimation => {
+                    this.data.username = ""
+                    this.data.password = ""
+                })
             })
         },
         momentFooter(date){

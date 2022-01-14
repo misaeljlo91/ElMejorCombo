@@ -34,9 +34,6 @@
                         <button v-if="hidden3" class="btn btn-outline-secondary sign-in" type="button" id="button-addon2" @click="showPassword3"><img src="./assets/hidden.png" alt=""></button>
                         <button v-if="show3" class="btn btn-outline-secondary sign-in" type="button" id="button-addon2" @click="showPassword3"><img src="./assets/show.png" alt=""></button>
                     </div>
-                    <div class="alert alert-danger d-flex align-items-center" role="alert" v-if="error && data.username == '' && data.password == ''">
-                        <p id="invalid">Usuario o contraseña incorrecta</p>
-                    </div>
                     <div class="mb-3">
                         <ul class="list-unstyled ps-0">
                             <li class="mb-1 link-signIn">
