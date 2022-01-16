@@ -6,32 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio | El mejor combo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <link rel="stylesheet" href="./styles/style.css">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
 <div id="app" v-cloak>
 <!-- ENCABEZADO -->
     <header id="user" v-if="listClient.role == 'ADMIN' || listClient.role == 'USER'">
-        <a href="" class="d-block link-light text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;"><div id="avatar"></div></a>
+        <a href="" class="d-block link-light text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;"><div id="avatar" :style="{backgroundImage: 'url('+listClient.profile+')'}"></div></a>
         <a class="d-block text-decoration-none name-profile">{{listClient.firstname}} {{listClient.lastname}}</a>
         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
             <li><a class="dropdown-item go-to" href="">Perfil</a></li>
             <li><a class="dropdown-item go-to" href="">Mis compras</a></li>
-            <li v-if="listClient.role == 'ADMIN'"><a class="dropdown-item go-to" href="manager.html">Panel de adminitrador</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item go-to" href="" @click.prevent="signOut">Cerrar sesión <img src="./assets/logout.png" alt="Sign out"></a></li>
+            <li><a class="dropdown-item go-to" href="" @click.prevent="signOut">Cerrar sesión <img src="../assets/logout.png" alt="Sign out"></a></li>
         </ul>
     </header>
     <header class="row g-0" id="sign-in" v-else>
         <div class="col-12 sign-in">
-            <a href="sign-in.html" class="sign-in">Iniciar sesión / Crear cuenta</a>
+            <a href="../sign-in.html" class="sign-in">Iniciar sesión / Crear cuenta</a>
         </div>
     </header>
 <!-- BARRA DE NAVEGACIÓN -->
     <nav class="navbar navbar-expand-lg navbar-1">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img src="./assets/logo-no-fondo.png" alt="Logo" class="logo"></a>
+            <a class="navbar-brand" href="index.html"><img src="../assets/logo-no-fondo.png" alt="Logo" class="logo"></a>
             <button class="navbar-toggler navbar" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span id="menu">&equiv;</span>
             </button>
@@ -55,14 +54,13 @@
                 </ul>
             </div>
             <div id="user-desktop" v-if="listClient.role == 'ADMIN' || listClient.role == 'USER'">
-                <a href="" class="d-block link-light text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;"><div id="avatar"></div></a>
+                <a href="" class="d-block link-light text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;"><div id="avatar" :style="{backgroundImage: 'url('+listClient.profile+')'}" style="margin-right: 2rem;"></div></a>
                 <a class="d-block text-decoration-none name-profile">{{listClient.firstname}} {{listClient.lastname}}</a>
                 <ul class="dropdown-menu text-small shadow-2" aria-labelledby="dropdownUser2">
                     <li><a class="dropdown-item go-to" href="">Perfil</a></li>
                     <li><a class="dropdown-item go-to" href="">Mis compras</a></li>
-                    <li v-if="listClient.role == 'ADMIN'"><a class="dropdown-item go-to" href="manager.html">Panel de adminitrador</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item go-to" href="" @click.prevent="signOut">Cerrar sesión <img src="./assets/logout.png" alt="Sign out"></a></li>
+                    <li><a class="dropdown-item go-to" href="" @click.prevent="signOut">Cerrar sesión <img src="../assets/logout.png" alt="Sign out"></a></li>
                 </ul>
             </div>
         </div>
@@ -74,10 +72,10 @@
 <!-- PIE DE PÁGINA -->
     <footer>
         <section id="social">
-            <a href="https://www.facebook.com/" target="_blank" class="social-icon"><img class="social" src="./assets/facebook.png" alt="Facebook"></a>
-            <a href="https://m.me/hectoremmanuel.rolon" target="_blank" class="social-icon"><img class="social" src="./assets/messanger.png" alt="Messanger"></a>
-            <a href="https://www.instagram.com" target="_blank" class="social-icon"><img class="social" src="./assets/instagram.png" alt="Instagram"></a>
-            <a href="https://wa.me/5491134254092" target="_blank" class="social-icon-2"><img class="social" src="./assets/whatsapp.png" alt="WhatsApp"></a>
+            <a href="https://www.facebook.com/" target="_blank" class="social-icon"><img class="social" src="../assets/facebook.png" alt="Facebook"></a>
+            <a href="https://m.me/hectoremmanuel.rolon" target="_blank" class="social-icon"><img class="social" src="../assets/messanger.png" alt="Messanger"></a>
+            <a href="https://www.instagram.com" target="_blank" class="social-icon"><img class="social" src="../assets/instagram.png" alt="Instagram"></a>
+            <a href="https://wa.me/5491134254092" target="_blank" class="social-icon-2"><img class="social" src="../assets/whatsapp.png" alt="WhatsApp"></a>
         </section>
         <section class="row g-0" id="information-nav">
             <div class="col-md-6 align-self-center">
@@ -115,8 +113,16 @@
                             <li class="mb-1 footer">
                                 <a class="nav-link footer" href="">Sobre nosotros</a>
                             </li>
+                            <li class="nav-item dropdown" v-if="listClient.role == 'ADMIN'">
+                                <a class="nav-link footer" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Panel de administrador</a>
+                                <ul class="dropdown-menu shadow" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item go-to" href="../webManager/manager-clients.html">Clientes</a></li>
+                                    <li><a class="dropdown-item go-to" href="../webManager/manager-products.html">Productos</a></li>
+                                    <li><a class="dropdown-item go-to" href="../webManager/manager-packs.html">Combos</a></li>
+                                </ul>
+                            </li>
                             <li class="mb-1 footer" v-if="listClient.role == 'ADMIN' || listClient.role == 'USER'">
-                                <a class="nav-link footer" href="" @click.prevent="signOut">Cerrar sesión <img src="./assets/logout.png" alt="Sign out"></a>
+                                <a class="nav-link footer" href="" @click.prevent="signOut">Cerrar sesión <img src="../assets/logout.png" alt="Sign out"></a>
                             </li>
                         </ul>
                     </div>
@@ -137,6 +143,6 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="./scripts/main.js"></script>
+    <script src="../scripts/main.js"></script>
 </body>
 </html>

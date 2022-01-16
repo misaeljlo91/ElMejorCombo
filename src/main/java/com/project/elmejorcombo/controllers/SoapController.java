@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api")
 public class SoapController {
@@ -25,10 +28,13 @@ public class SoapController {
 
     //API Rest ADMIN
     @GetMapping("/admin/soaps") //Get list soaps ADMIN only
-    public Page<Soap> getAllSoaps(@PageableDefault(size = 10, page = 0) Pageable pageable){
+    public List<SoapDTO>  getAllSoaps(){
+        return soapRepository.findAll().stream().map(soap -> new SoapDTO(soap)).collect(Collectors.toList());
+    }
+    /*public Page<Soap> getAllSoaps(@PageableDefault(size = 10, page = 0) Pageable pageable){
         Page<Soap> listSoaps = soapService.findAll(pageable);
         return listSoaps;
-    }
+    }*/
 
     @GetMapping("/admin/soaps/{id}") //Get soap by ID ADMIN only
     public SoapDTO getSoapID(@PathVariable Long id){
@@ -46,7 +52,9 @@ public class SoapController {
             return new ResponseEntity<>("El monto del producto debe ser mayor a cero", HttpStatus.FORBIDDEN);
         }
 
-        soapRepository.save(new Soap(soapData.getName(), soapData.getDescription(), soapData.getUrl(), soapData.getPrice(), soapData.getStock()));
+        int code = (int)((Math.random()*(999999-100000+1))+100000);
+
+        soapRepository.save(new Soap("J"+code, soapData.getName(), soapData.getDescription(), soapData.getUrl(), soapData.getPrice(), soapData.getStock()));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

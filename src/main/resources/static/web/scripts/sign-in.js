@@ -23,7 +23,7 @@ const app = Vue.createApp({
         signIn(){
             axios.post("/api/login",`username=${this.data.username}&password=${this.data.password}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
             .then(response => {
-                window.location.replace("index.html")
+                window.location.replace("./webPages/index.html")
             })
             .catch(error => {
                 swal({
@@ -59,7 +59,7 @@ const app = Vue.createApp({
                     .then(confirmation => {
                         axios.post("/api/login",`username=${this.data.username}&password=${this.data.password}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
                         .then(response => {
-                            window.location.replace("index.html")
+                            window.location.replace("./webPages/index.html")
                         })
                     })
                 })

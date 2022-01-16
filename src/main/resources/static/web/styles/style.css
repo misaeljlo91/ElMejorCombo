@@ -48,11 +48,9 @@ header#user{
     user-select: none;
 }
 div#avatar{
-    background-image: url("../assets/profile.png"); /* Es dinámico, cambiar cuando se aplique Veu.js */
     width: 48px !important;
     height: 48px !important;
     border-radius: 50%;
-    background-repeat: no-repeat;
     background-size: cover;
 }
 a.name-profile{
@@ -65,7 +63,7 @@ ul.shadow, ul.shadow-2{
     background-color: #c88b96;
 }
 ul.shadow-2{
-    margin-left: 72rem !important;
+    margin-left: 72.5rem !important;
 }
 a.go-to{
     font-weight: bold;
@@ -83,6 +81,14 @@ nav.navbar-1{
 }
 img.logo{
     width: 84px;
+}
+p#panel{
+    border-left: 5px solid #973b50;
+    border-bottom: 5px solid #973b50;
+    border-radius: 15px;
+    padding: .5rem 2rem !important;
+    font-size: xx-large !important;
+    font-weight: bold;
 }
 a.navbar-menu, a.navbar-menu-active{
     background: linear-gradient(to right, #c88b96, #f15d9a) !important;
@@ -160,10 +166,170 @@ p#footer-page{
     font-weight: bold;
 }
 
+/* MANAGER */
+
+li.manager:hover{
+    background: linear-gradient(to left, #973b50, #f15d9a, #c88b96);
+    border: none;
+}
+h5.manager{
+    border-left: 2px solid #973b50;
+    padding: .2rem 0 .2rem .5rem;
+    color: #000;
+}
+div#manager-mobile{
+    display: none;
+    text-align: center;
+}
+a.manager-mobile, a.manager-mobile-2, a.manager-mobile-3{
+    background: linear-gradient(to right, #973b50, #f15d9a, #c88b96);
+    border: none;
+    color: #000;
+    font-weight: bold;
+}
+a.manager-mobile:hover, a.manager-mobile-2:hover, a.manager-mobile-3:hover{
+    background: linear-gradient(to right, #973b50, #f15d9a, #c88b96);
+    color: #000;
+    text-decoration: underline;
+}
+a.manager-mobile, a.manager-mobile-2{
+    margin-right: 1rem !important;
+}
+a.current{
+    text-decoration: underline;
+}
+
+/* TABLA DE REGISTRO */
+
+form.register{
+    background-image: url("../assets/pink-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 1rem !important;
+    margin-top: 1rem;
+    border-radius: 15px;
+}
+p#selectHelp{
+    margin: 0;
+    color: #000;
+    font-weight: bold;
+    text-indent: 1.5rem;
+}
+h4.register{
+    border-left: 5px solid #973b50;
+    border-right: 5px solid #973b50;
+    padding: .4rem 0 .4rem .6rem !important;
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+}
+label.formulary{
+    margin: 0;
+    font-weight: bold;
+}
+p.counter{
+    margin: 0;
+    text-align: right;
+}
+div.add-product{
+    text-align: center;
+}
+input.add, input.reset{
+    background-color: #973b50;
+    border: none;
+    color: #000;
+}
+input.add:hover, input.reset:hover{
+    background-color: #973b50;
+    color: #000;
+    font-weight: bold;
+    text-decoration: underline;
+}
+input.add{
+    margin-right: .5rem;
+}
+
+/* DATOS DE PRODUCTOS REGISTRADOS */
+
+button.products{
+    background: linear-gradient(to left, #973b50, #f15d9a, #c88b96);
+    border: none;
+    font-size: large;
+}
+button.products:not(.collapse){
+    color: #000;
+}
+button.search{
+    background-color: #009e93;
+    padding: .5rem;
+    margin-bottom: .5rem;
+}
+div.search-space{
+    background: none;
+    border: none;
+}
+div.search-alert{
+    margin-bottom: 0;
+}
+thead.products, tbody.products{
+    text-align: center;
+}
+thead.products{
+    background: linear-gradient(to right, #009e93, #87e1dd);
+}
+button.description, button.description:hover, button.description:not(.collapse){
+    background-color: #009e93;
+    border: none;
+    color: #000;
+}
+ul.manager-products{
+    background: linear-gradient(to top, #009e93, #87e1dd);
+    padding: .5rem;
+}
+p.manager-products{
+    margin: 0;
+}
+
+/* DATA PAGES */
+
+a.data-page{
+    background: linear-gradient(to left, #973b50, #f15d9a, #c88b96);
+    border: none;
+    color: #000;
+}
+a.data-page:hover{
+    background: linear-gradient(to left, #973b50, #f15d9a, #c88b96);
+    border: none;
+    color: #000;
+    font-weight: bold;
+    text-decoration: underline;
+}
+a.data-page-2, a.data-page-3{
+    background-color: #973b50;
+    border: none;
+    color: #000;
+}
+a.data-page-2:hover, a.data-page-3:hover{
+    background-color: #973b50;
+    border: none;
+    color: #000;
+    font-weight: bold;
+    text-decoration: underline;
+}
+a.data-page-2{
+    margin-right: .5rem;
+}
+img.img-data{
+    margin-bottom: 1rem;
+    width: 250px !important;
+    height: 250px !important;
+    border-radius: 50%;
+}
+
 @media screen and (max-width: 1024px) {
     /* HEADER - USER */
     ul.shadow-2{
-        margin-left: 51rem !important;
+        margin-left: 51.5rem !important;
     }
 
     /* FOOTER */
@@ -189,6 +355,9 @@ p#footer-page{
         width: 100% !important;
         text-align: left !important;
     }
+    p#panel{
+        margin-right: 8rem !important;
+    }
     a#index{
         display: none;
     }
@@ -203,9 +372,20 @@ p#footer-page{
     div.navbar-2{
         width: 150px !important;
     }
+
+    /* DATA PAGES */
+    img.img-data{
+        width: 200px !important;
+        height: 200px !important;
+    }
 }
 
 @media screen and (max-width: 425px) {
+    /* BARRA DE NAVEGACIÓN */
+    p#panel{
+        display: none;
+    }
+
     /* FOOTER */
     a.social-icon{
         margin-right: 2vw !important;
@@ -215,6 +395,23 @@ p#footer-page{
     }
     p#footer-page{
         font-size: 14px !important;
+    }
+
+    /* MANAGER */
+    ul#manager-desktop{
+        display: none;
+    }
+    div#manager-mobile{
+        display: block;
+    }
+
+    /* DATA PAGES */
+    a.data-page{
+        margin-bottom: 1rem;
+    }
+    img.img-data{
+        width: 250px !important;
+        height: 250px !important;
     }
 }
 
@@ -234,7 +431,7 @@ p#footer-page{
     }
     p#footer-page{
         font-size: 12px !important;
-    }
+    }    
 }
 
 @media screen and (max-width: 320px) {
@@ -263,5 +460,19 @@ p#footer-page{
     }
     p#footer-page{
         font-size: 10px !important;
+    }
+
+    /* MANAGER */
+    a.manager-mobile, a.manager-mobile-2{
+        margin-bottom: .5rem !important;
+    }
+    a.manager-mobile-2{
+        margin-right: 0 !important;
+    }
+
+    /* DATA PAGES */
+    img.img-data{
+        width: 200px !important;
+        height: 200px !important;
     }
 }

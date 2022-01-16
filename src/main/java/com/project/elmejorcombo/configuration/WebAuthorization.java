@@ -27,10 +27,12 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PATCH,"/api/clients/forgot-password").permitAll()
 
                 //ADMIN
+                .antMatchers("/web/webManager/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.GET,"/api/admin/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST,"/api/admin/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.PUT,"/api/admin/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.DELETE,"/api/admin/**").hasAuthority("ADMIN")
+
                 //ADMIN, USER
                 .antMatchers(HttpMethod.GET,"/api/clients/current/**").hasAnyAuthority("ADMIN, USER")
                 .antMatchers(HttpMethod.POST,"/api/clients/current/**").hasAnyAuthority("ADMIN, USER")
@@ -48,7 +50,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.headers().frameOptions().disable();
 
-        http.exceptionHandling().authenticationEntryPoint((req, res, exc) -> res.sendRedirect("/web/index.html"));
+        http.exceptionHandling().authenticationEntryPoint((req, res, exc) -> res.sendRedirect("/web/webPages/index.html"));
         http.formLogin().successHandler((req, res, auth) -> clearAuthenticationAttributes(req));
         http.formLogin().failureHandler((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED));
         http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());

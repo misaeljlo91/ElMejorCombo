@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api")
 public class ConditionerController {
@@ -25,10 +28,13 @@ public class ConditionerController {
 
     //API Rest ADMIN
     @GetMapping("/admin/conditioners") //Get list conditioners ADMIN only
-    public Page<Conditioner> getAllShampoos(@PageableDefault(size = 10, page = 0) Pageable pageable){
+    public List<ConditionerDTO> getAllConditioners(){
+        return conditionerRepository.findAll().stream().map(conditioner -> new ConditionerDTO(conditioner)).collect(Collectors.toList());
+    }
+    /*public Page<Conditioner> getAllConditioners(@PageableDefault(size = 10, page = 0) Pageable pageable){
         Page<Conditioner> listConditioners = conditionerService.findAll(pageable);
         return listConditioners;
-    }
+    }*/
 
     @GetMapping("/admin/conditioners/{id}") //Get conditioner by ID ADMIN only
     public ConditionerDTO getConditionerID(@PathVariable Long id){
@@ -46,7 +52,9 @@ public class ConditionerController {
             return new ResponseEntity<>("El monto del producto debe ser mayor a cero", HttpStatus.FORBIDDEN);
         }
 
-        conditionerRepository.save(new Conditioner(conditionerData.getName(), conditionerData.getDescription(), conditionerData.getUrl(), conditionerData.getPrice(), conditionerData.getStock()));
+        int code = (int)((Math.random()*(999999-100000+1))+100000);
+
+        conditionerRepository.save(new Conditioner("A"+code, conditionerData.getName(), conditionerData.getDescription(), conditionerData.getUrl(), conditionerData.getPrice(), conditionerData.getStock()));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

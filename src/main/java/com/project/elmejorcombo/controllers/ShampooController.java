@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api")
 public class ShampooController {
@@ -25,10 +28,13 @@ public class ShampooController {
 
     //API Rest ADMIN
     @GetMapping("/admin/shampoos") //Get list shampoos ADMIN only
-    public Page<Shampoo> getAllShampoos(@PageableDefault(size = 10, page = 0) Pageable pageable){
+    public List<ShampooDTO> getAllShampoos(){
+        return shampooRepository.findAll().stream().map(shampoo -> new ShampooDTO(shampoo)).collect(Collectors.toList());
+    }
+    /*public Page<Shampoo> getAllShampoos(@PageableDefault(size = 10, page = 0) Pageable pageable){
         Page<Shampoo> listShampoos = shampooService.findAll(pageable);
         return listShampoos;
-    }
+    }*/
 
     @GetMapping("/admin/shampoos/{id}") //Get shampoo by ID ADMIN only
     public ShampooDTO getShampooID(@PathVariable Long id){
@@ -46,7 +52,9 @@ public class ShampooController {
             return new ResponseEntity<>("El monto del producto debe ser mayor a cero", HttpStatus.FORBIDDEN);
         }
 
-        shampooRepository.save(new Shampoo(shampooData.getName(), shampooData.getDescription(), shampooData.getUrl(), shampooData.getPrice(), shampooData.getStock()));
+        int code = (int)((Math.random()*(999999-100000+1))+100000);
+
+        shampooRepository.save(new Shampoo("C"+code, shampooData.getName(), shampooData.getDescription(), shampooData.getUrl(), shampooData.getPrice(), shampooData.getStock()));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

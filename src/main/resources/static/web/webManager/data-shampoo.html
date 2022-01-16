@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos del producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div id="app" v-cloak>
+<!-- ENCABEZADO -->
+    <header id="user" v-if="listClient.role == 'ADMIN' || listClient.role == 'USER'">
+        <a href="" class="d-block link-light text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;"><div id="avatar" :style="{backgroundImage: 'url('+listClient.profile+')'}"></div></a>
+        <a class="d-block text-decoration-none name-profile">{{listClient.firstname}} {{listClient.lastname}}</a>
+        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+            <li><a class="dropdown-item go-to" href="">Perfil</a></li>
+            <li><a class="dropdown-item go-to" href="">Mis compras</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item go-to" href="" @click.prevent="signOut">Cerrar sesión <img src="../assets/logout.png" alt="Sign out"></a></li>
+        </ul>
+    </header>
+<!-- BARRA DE NAVEGACIÓN -->
+    <nav class="navbar navbar-expand-lg navbar-1">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../webPages/index.html"><img src="../assets/logo-no-fondo.png" alt="Logo" class="logo"></a>
+            <p id="panel">Panel de administrador</p>
+            <div id="user-desktop" v-if="listClient.role == 'ADMIN' || listClient.role == 'USER'">
+                <a href="" class="d-block link-light text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;"><div id="avatar" :style="{backgroundImage: 'url('+listClient.profile+')'}" style="margin-right: 2rem;"></div></a>
+                <a class="d-block text-decoration-none name-profile">{{listClient.firstname}} {{listClient.lastname}}</a>
+                <ul class="dropdown-menu text-small shadow-2" aria-labelledby="dropdownUser2">
+                    <li><a class="dropdown-item go-to" href="">Perfil</a></li>
+                    <li><a class="dropdown-item go-to" href="">Mis compras</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item go-to" href="" @click.prevent="signOut">Cerrar sesión <img src="../assets/logout.png" alt="Sign out"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<!-- CONTENIDO -->
+    <main>
+        <div class="row g-0">
+            <div class="col-md-2">
+                <a class="btn btn-primary data-page" href="manager-products.html" role="button">Volver</a>
+            </div>
+            <div class="col-md-8">
+                <form class="register" style="margin-top: 0;">
+                    <h4 class="register">Registro del champú Nro. {{shampoo.code}}</h4>
+                    <div class="row justify-content-around">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="nameShampoo" class="form-label formulary">Nombre del producto:</label>
+                                <input v-model="shampoo.name" type="text" class="form-control" id="nameShampoo" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="descriptionShampoo" class="form-label formulary">Descripción del produto:</label>
+                                <textarea v-model="shampoo.description" class="form-control" maxlength="180" id="descriptionShampoo" rows="2" required></textarea>
+                                <p class="counter">{{counterShampoo}}/180</p>
+                            </div>
+                            <div class="mb-3">
+                                <label for="urlShampoo" class="form-label formulary">Imagen:</label>
+                                <input v-model="shampoo.url" type="text" class="form-control" id="urlShampoo" required>
+                            </div>
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <label for="priceShampoo" class="form-label formulary">Precio:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text">$</div>
+                                        <input v-model="shampoo.price" type="number" class="form-control" id="priceShampoo" required>
+                                    </div>
+                                </div>
+                                <div class="col mb-3">
+                                    <label for="stockShampoo" class="form-label formulary">Stock:</label>
+                                    <input v-model="shampoo.stock" type="number" class="form-control" id="stockShampoo" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 align-self-center" style="text-align: center; user-select: none;">
+                            <img :src="shampoo.url" alt="Imagen del producto">
+                        </div>
+                    </div>
+                    <div class="form-floating add-product">
+                        <a class="btn btn-primary data-page-2" href="" role="button" @click.prevent="changeDataShampoo">Guardar</a>
+                        <a class="btn btn-primary data-page-3" href="" role="button" @click.prevent="deleteShampoo">Eliminar</a>
+                    </div>
+                </form>
+            </div>
+        </div>   
+    </main>
+<!-- PIE DE PÁGINA -->
+    <footer>
+        <section id="copy-right">
+            <p id="footer-page">&copy; {{momentFooter(new Date())}} El mejor combo | Todos los derechos reservados.</p>
+        </section>
+    </footer>
+</div>
+<!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+<!-- VUE.JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../scripts/manager.js"></script>
+</body>
+</html>

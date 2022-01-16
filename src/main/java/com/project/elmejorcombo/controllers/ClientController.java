@@ -17,6 +17,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api")
 public class ClientController {
@@ -32,10 +35,13 @@ public class ClientController {
 
     //API Rest ADMIN
     @GetMapping("/admin/clients") //Get list client ADMIN only
-    public Page<Client> getAllClients(@PageableDefault(size = 10, page = 0) Pageable pageable){
+    public List<ClientDTO> getAllClients(){
+        return clientRepository.findAll().stream().map(client -> new ClientDTO(client)).collect(Collectors.toList());
+    }
+    /*public Page<Client> getAllClients(@PageableDefault(size = 10, page = 0) Pageable pageable){
         Page<Client> listClients = clientService.findAll(pageable);
         return listClients;
-    }
+    }*/
 
     @GetMapping("/admin/clients/{id}") //Get client by ID ADMIN only
     public ClientDTO getClientID(@PathVariable Long id){
@@ -68,7 +74,6 @@ public class ClientController {
     }
 
     //API Rest ALL
-
     @PostMapping("/clients")
     public ResponseEntity<Object> registerNewClient(@RequestBody ClientDataRequest clientData){
 
@@ -88,7 +93,9 @@ public class ClientController {
             return new ResponseEntity<>("Su contraseña debe contener entre 8 y 16 caracteres", HttpStatus.FORBIDDEN);
         }
 
-        clientRepository.save(new Client(clientData.getFirstname(), clientData.getLastname(), clientData.getUsername(), clientData.getEmail(), passwordEncoder.encode(clientData.getPassword()), ClientRole.USER));
+        int code = (int)((Math.random()*(999999-100000+1))+100000);
+
+        clientRepository.save(new Client("CR"+code, clientData.getFirstname(), clientData.getLastname(), clientData.getUsername(), clientData.getEmail(), passwordEncoder.encode(clientData.getPassword()), "/web/assets/profile.png", ClientRole.USER));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

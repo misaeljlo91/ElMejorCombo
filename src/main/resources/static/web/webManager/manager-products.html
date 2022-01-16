@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div id="app" v-cloak>
+<!-- ENCABEZADO -->
+    <header id="user" v-if="listClient.role == 'ADMIN' || listClient.role == 'USER'">
+        <a href="" class="d-block link-light text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;"><div id="avatar" :style="{backgroundImage: 'url('+listClient.profile+')'}"></div></a>
+        <a class="d-block text-decoration-none name-profile">{{listClient.firstname}} {{listClient.lastname}}</a>
+        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+            <li><a class="dropdown-item go-to" href="">Perfil</a></li>
+            <li><a class="dropdown-item go-to" href="">Mis compras</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item go-to" href="" @click.prevent="signOut">Cerrar sesión <img src="../assets/logout.png" alt="Sign out"></a></li>
+        </ul>
+    </header>
+<!-- BARRA DE NAVEGACIÓN -->
+    <nav class="navbar navbar-expand-lg navbar-1">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../webPages/index.html"><img src="../assets/logo-no-fondo.png" alt="Logo" class="logo"></a>
+            <p id="panel">Panel de administrador</p>
+            <div id="user-desktop" v-if="listClient.role == 'ADMIN' || listClient.role == 'USER'">
+                <a href="" class="d-block link-light text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;"><div id="avatar" :style="{backgroundImage: 'url('+listClient.profile+')'}" style="margin-right: 2rem;"></div></a>
+                <a class="d-block text-decoration-none name-profile">{{listClient.firstname}} {{listClient.lastname}}</a>
+                <ul class="dropdown-menu text-small shadow-2" aria-labelledby="dropdownUser2">
+                    <li><a class="dropdown-item go-to" href="">Perfil</a></li>
+                    <li><a class="dropdown-item go-to" href="">Mis compras</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item go-to" href="" @click.prevent="signOut">Cerrar sesión <img src="../assets/logout.png" alt="Sign out"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<!-- CONTENIDO -->
+    <main>
+        <ul class="nav nav-tabs" id="manager-desktop" style="user-select: none;">
+            <li class="nav-item manager">
+                <a class="nav-link" href="manager-clients.html"><h5 class="manager">Clientes</h5></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="manager-products.html"><h5 class="manager">Productos</h5></a>
+            </li>
+            <li class="nav-item manager">
+                <a class="nav-link" href="manager-packs.html"><h5 class="manager">Combos</h5></a>
+            </li>
+        </ul>
+        <div id="manager-mobile">
+            <a class="btn btn-primary manager-mobile" href="manager-clients.html" role="button">Clientes</a>
+            <a class="btn btn-primary manager-mobile-2 current" href="manager-products.html" role="button">Productos</a>
+            <a class="btn btn-primary manager-mobile-3" href="manager-packs.html" role="button">Combos</a>
+        </div>
+        <div class="row justify-content-around">
+            <div class="col-md-4">
+                <form class="register" style="user-select: none;">
+                    <div class="mb-3">
+                        <label for="products" class="form-label formulary">Tipo de producto:</label>
+                        <select v-model="selected" class="form-select" id="select" aria-describedby="selectHelp" aria-label="Default select example">
+                            <option value="" selected disabled>Seleccione</option>
+                            <option value="Soap">Jabón</option>
+                            <option value="Shampoo">Champú</option>
+                            <option value="Conditioner">Acondicionador</option>
+                        </select>
+                    </div>
+                    <p id="selectHelp" class="form-text">Por favor, seleccione el tipo de producto que desea registrar.</p>
+                </form>
+                <form v-if="selected === ''" class="register">
+                    <h4 class="register">Nuevo producto</h4>
+                    <div class="mb-3">
+                        <label for="nameNone" class="form-label formulary">Nombre del producto:</label>
+                        <input type="text" class="form-control" id="nameNone" placeholder="Ingrese nombre del producto" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descriptionNone" class="form-label formulary">Descripción del produto:</label>
+                        <textarea class="form-control" maxlength="180" id="descriptionNone" rows="2" placeholder="Agregue una descripción" disabled></textarea>
+                        <p class="counter">{{counterSoap}}/180</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="urlNone" class="form-label formulary">Imagen:</label>
+                        <input type="text" class="form-control" id="urlNone" placeholder="Ingrese URL" disabled>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="priceNone" class="form-label formulary">Precio:</label>
+                            <div class="input-group">
+                                <div class="input-group-text">$</div>
+                                <input type="number" class="form-control" id="priceNone" placeholder="0" disabled>
+                            </div>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="stockNone" class="form-label formulary">Stock:</label>
+                            <input type="number" class="form-control" id="stockNone" placeholder="0" disabled>
+                        </div>
+                    </div>
+                    <div class="form-floating add-product">
+                        <input class="btn btn-primary add" type="submit" value="Registrar">
+                        <input class="btn btn-primary reset" type="reset" value="Limpiar">
+                    </div>
+                </form>
+                <form v-if="selected === 'Soap'" class="register" @submit.prevent="addSoap">
+                    <h4 class="register">Nuevo jabón</h4>
+                    <div class="mb-3">
+                        <label for="nameSoap" class="form-label formulary">Nombre del producto:</label>
+                        <input v-model="soap.name" type="text" class="form-control" id="nameSoap" placeholder="Ingrese nombre del producto" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descriptionSoap" class="form-label formulary">Descripción del produto:</label>
+                        <textarea v-model="soap.description" class="form-control" maxlength="180" id="descriptionSoap" rows="2" placeholder="Agregue una descripción" required></textarea>
+                        <p class="counter">{{counterSoap}}/180</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="urlSoap" class="form-label formulary">Imagen:</label>
+                        <input v-model="soap.url" type="text" class="form-control" id="urlSoap" placeholder="Ingrese URL" required>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="priceSoap" class="form-label formulary">Precio:</label>
+                            <div class="input-group">
+                                <div class="input-group-text">$</div>
+                                <input v-model="soap.price" type="number" class="form-control" id="priceSoap" placeholder="0" required>
+                            </div>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="stockSoap" class="form-label formulary">Stock:</label>
+                            <input v-model="soap.stock" type="number" class="form-control" id="stockSoap" placeholder="0" required>
+                        </div>
+                    </div>
+                    <div class="form-floating add-product">
+                        <input class="btn btn-primary add" type="submit" value="Registrar">
+                        <input class="btn btn-primary reset" type="reset" value="Limpiar">
+                    </div>
+                </form>
+                <form v-if="selected === 'Shampoo'" class="register" @submit.prevent="addShampoo">
+                    <h4 class="register">Nuevo champú</h4>
+                    <div class="mb-3">
+                        <label for="nameShampoo" class="form-label formulary">Nombre del producto:</label>
+                        <input v-model="shampoo.name" type="text" class="form-control" id="nameShampoo" placeholder="Ingrese nombre del producto" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descriptionShampoo" class="form-label formulary">Descripción del produto:</label>
+                        <textarea v-model="shampoo.description" class="form-control" maxlength="180" id="descriptionShampoo" rows="2" placeholder="Agregue una descripción" required></textarea>
+                        <p class="counter">{{counterShampoo}}/180</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="urlShampoo" class="form-label formulary">Imagen:</label>
+                        <input v-model="shampoo.url" type="text" class="form-control" id="urlShampoo" placeholder="Ingrese URL" required>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="priceShampoo" class="form-label formulary">Precio:</label>
+                            <div class="input-group">
+                                <div class="input-group-text">$</div>
+                                <input v-model="shampoo.price" type="number" class="form-control" id="priceShampoo" placeholder="0" required>
+                            </div>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="stockShampoo" class="form-label formulary">Stock:</label>
+                            <input v-model="shampoo.stock" type="number" class="form-control" id="stockShampoo" placeholder="0" required>
+                        </div>
+                    </div>
+                    <div class="form-floating add-product">
+                        <input class="btn btn-primary add" type="submit" value="Registrar">
+                        <input class="btn btn-primary reset" type="reset" value="Limpiar">
+                    </div>
+                </form>
+                <form v-if="selected === 'Conditioner'" class="register" @submit.prevent="addConditioner">
+                    <h4 class="register">Nuevo acondicionador</h4>
+                    <div class="mb-3">
+                        <label for="nameConditioner" class="form-label formulary">Nombre del producto:</label>
+                        <input v-model="conditioner.name" type="text" class="form-control" id="nameConditioner" placeholder="Ingrese nombre del producto" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descriptionConditioner" class="form-label formulary">Descripción del produto:</label>
+                        <textarea v-model="conditioner.description" class="form-control" maxlength="180" id="descriptionConditioner" rows="2" placeholder="Agregue una descripción" required></textarea>
+                        <p class="counter">0/180</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="urlConditioner" class="form-label formulary">Imagen:</label>
+                        <input v-model="conditioner.url" type="text" class="form-control" id="urlConditioner" placeholder="Ingrese URL" required>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="priceConditioner" class="form-label formulary">Precio:</label>
+                            <div class="input-group">
+                                <div class="input-group-text">$</div>
+                                <input v-model="conditioner.price" type="number" class="form-control" id="priceConditioner" placeholder="0" required>
+                            </div>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="stockConditioner" class="form-label formulary">Stock:</label>
+                            <input v-model="conditioner.stock" type="number" class="form-control" id="stockConditioner" placeholder="0" required>
+                        </div>
+                    </div>
+                    <div class="form-floating add-product">
+                        <input class="btn btn-primary add" type="submit" value="Registrar">
+                        <input class="btn btn-primary reset" type="reset" value="Limpiar">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <div class="accordion accordion-flush" id="accordionFlushExample" style="margin-top: 1rem;">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed products" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">Jabón</button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <div class="col-12">
+                                    <button class="navbar-toggler search" type="button" data-bs-toggle="dropdown" data-bs-target="#search-button" aria-controls="search-button" aria-expanded="false" aria-label="Toggle navigation" style="float: right;"><img src="../assets/search.png" alt="Search"></button>
+                                    <div class="navbar-collapse dropdown-menu search-space">
+                                        <input class="form-control" type="search" placeholder="Nro. producto" aria-label="Buscar" v-model="searchSoap">
+                                    </div>
+                                </div>
+                                <table class="table table-hover">
+                                    <thead class="products">
+                                        <tr>
+                                            <th scope="col">Nro. producto</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Precio AR $</th>
+                                            <th scope="col">Stock</th>
+                                            <th scope="col">Detalles</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="products">
+                                        <tr  v-if="noSearchSoap">
+                                            <td colspan="7">
+                                                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                                    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                    </symbol>
+                                                </svg>
+                                                <div class="alert alert-danger d-flex align-items-center search-alert" role="alert">
+                                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                                    <div>No se encontraron resultados para esta búsqueda.</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody class="products">
+                                        <tr v-for="soap in searchSoaps">
+                                            <td>{{soap.code}}</td>
+                                            <td>{{soap.name}}</td>
+                                            <td class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle description" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Ver descripción</button>
+                                                <ul class="dropdown-menu manager-products" aria-labelledby="dropdownMenuButton1">
+                                                    <li><p class="manager-products">{{soap.description}}</p></li>
+                                                </ul>
+                                            </td>
+                                            <td>{{formatPrice(soap.price)}}</td>
+                                            <td>{{soap.stock}}</td>
+                                            <td><a :href="'data-soap.html?id=' + soap.id"><img src="../assets/view-details.png" alt="Detalles"></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed products" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">Champú</button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <div class="col-12">
+                                    <button class="navbar-toggler search" type="button" data-bs-toggle="dropdown" data-bs-target="#search-button" aria-controls="search-button" aria-expanded="false" aria-label="Toggle navigation" style="float: right;"><img src="../assets/search.png" alt="Search"></button>
+                                    <div class="navbar-collapse dropdown-menu search-space">
+                                        <input class="form-control" type="search" placeholder="Nro. producto" aria-label="Buscar" v-model="searchShampoo">
+                                    </div>
+                                </div>
+                                <table class="table table-hover">
+                                    <thead class="products">
+                                        <tr>
+                                            <th scope="col">Nro. producto</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Precio AR $</th>
+                                            <th scope="col">Stock</th>
+                                            <th scope="col">Detalles</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="products">
+                                        <tr v-if="noSearchShampoo">
+                                            <td colspan="7">
+                                                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                                    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                    </symbol>
+                                                </svg>
+                                                <div class="alert alert-danger d-flex align-items-center search-alert" role="alert">
+                                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                                    <div>No se encontraron resultados para esta búsqueda.</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody class="products">
+                                        <tr v-for="shampoo in searchShampoos">
+                                            <td>{{shampoo.code}}</td>
+                                            <td>{{shampoo.name}}</td>
+                                            <td class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle description" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Ver descripción</button>
+                                                <ul class="dropdown-menu manager-products" aria-labelledby="dropdownMenuButton1">
+                                                    <li><p class="manager-products">{{shampoo.description}}</p></li>
+                                                </ul>
+                                            </td>
+                                            <td>{{shampoo.price}}</td>
+                                            <td>{{shampoo.stock}}</td>
+                                            <td><a :href="'data-shampoo.html?id=' + shampoo.id"><img src="../assets/view-details.png" alt="Detalles"></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingThree">
+                            <button class="accordion-button collapsed products" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">Acondicionador</button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <div class="col-12">
+                                    <button class="navbar-toggler search" type="button" data-bs-toggle="dropdown" data-bs-target="#search-button" aria-controls="search-button" aria-expanded="false" aria-label="Toggle navigation" style="float: right;"><img src="../assets/search.png" alt="Search"></button>
+                                    <div class="navbar-collapse dropdown-menu search-space">
+                                        <input class="form-control" type="search" placeholder="Nro. producto" aria-label="Buscar" v-model="searchConditioner">
+                                    </div>
+                                </div>
+                                <table class="table table-hover">
+                                    <thead class="products">
+                                        <tr>
+                                            <th scope="col">Nro. producto</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Precio AR $</th>
+                                            <th scope="col">Stock</th>
+                                            <th scope="col">Detalles</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="products">
+                                        <tr v-if="noSearchConditioner">
+                                            <td colspan="7">
+                                                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                                    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                    </symbol>
+                                                </svg>
+                                                <div class="alert alert-danger d-flex align-items-center search-alert" role="alert">
+                                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                                    <div>No se encontraron resultados para esta búsqueda.</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody class="products">
+                                        <tr v-for="conditioner in searchConditioners">
+                                            <td>{{conditioner.code}}</td>
+                                            <td>{{conditioner.name}}</td>
+                                            <td class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle description" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Ver descripción</button>
+                                                <ul class="dropdown-menu manager-products" aria-labelledby="dropdownMenuButton1">
+                                                    <li><p class="manager-products">{{conditioner.description}}</p></li>
+                                                </ul>
+                                            </td>
+                                            <td>{{conditioner.price}}</td>
+                                            <td>{{conditioner.stock}}</td>
+                                            <td><a :href="'data-conditioner.html?id=' + conditioner.id"><img src="../assets/view-details.png" alt="Detalles"></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+<!-- PIE DE PÁGINA -->
+    <footer>
+        <section id="copy-right">
+            <p id="footer-page">&copy; {{momentFooter(new Date())}} El mejor combo | Todos los derechos reservados.</p>
+        </section>
+    </footer>
+</div>
+<!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+<!-- VUE.JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../scripts/manager.js"></script>
+</body>
+</html>
