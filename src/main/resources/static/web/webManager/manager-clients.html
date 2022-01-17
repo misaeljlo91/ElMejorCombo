@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clientes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/manager.css">
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -124,10 +124,10 @@
                     <tbody class="products">
                         <tr v-for="client in searchClients">
                             <td><a :href="'data-client.html?id=' + client.id"><div id="avatar" :style="{backgroundImage: 'url('+client.profile+')'}"></div></a></td>
-                            <td>{{client.code}}</td>
-                            <td>{{client.firstname}} {{client.lastname}}</td>
-                            <td>{{client.username}}</td>
-                            <td>{{client.email}}</td>
+                            <td style="padding-top: 1.3rem;">{{client.code}}</td>
+                            <td style="padding-top: 1.3rem;">{{client.firstname}} {{client.lastname}}</td>
+                            <td style="padding-top: 1.3rem;">{{client.username}}</td>
+                            <td style="padding-top: 1.3rem;">{{client.email}}</td>
                         </tr>
                     </tbody>
                 </table>

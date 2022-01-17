@@ -16,6 +16,7 @@ public class Pack {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private Long id;
+    private String code;
     private String namePack;
     private double price;
 
@@ -25,19 +26,22 @@ public class Pack {
     //CONSTRUCTORES
     public Pack() { }
 
-    public Pack(String namePack, double price) {
+    public Pack(String code, String namePack, double price) {
+        this.code = code;
         this.namePack = namePack;
         this.price = price;
     }
 
     //GETTER
     public Long getId() {return id;}
+    public String getCode() {return code;}
     public String getNamePack() {return namePack;}
     public double getPrice() {return price;}
     public Set<PackProduct> getPackProducts() {return packProducts;}
 
     //SETTER
     public void setId(Long id) {this.id = id;}
+    public void setCode(String code) {this.code = code;}
     public void setNamePack(String namePack) {this.namePack = namePack;}
     public void setPrice(double price) {this.price = price;}
     public void setPackProducts(Set<PackProduct> packProducts) {this.packProducts = packProducts;}

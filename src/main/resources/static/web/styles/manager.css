@@ -126,37 +126,6 @@ main{
 footer{
     user-select: none;
 }
-section#social{
-    padding: 0 0 1vh 2.5vw;
-}
-a.social-icon{
-    margin-right: .5vw !important;
-}
-section#information-nav{
-    border-top: 1rem solid #f15d9a;
-    padding: 2.5vh 1vw 1vh 2.5vw;
-    background-color: #87e1dd;
-}
-iframe{
-    border: 1px solid #f15d9a;
-    border-radius: 10px;
-}
-div.navbar-2{
-    width: 250px !important;
-}
-p.title-nav-2{
-    text-align: center;
-    margin: 0;
-}
-a.footer{
-    border-bottom: 1px solid #973b50;
-    color: #000;
-    text-align: center;
-}
-a.footer:hover{
-    font-weight: bold;
-    color: #973b50;
-}
 section#copy-right{
     padding: 1rem 0 .5rem 0 !important;
     text-align: center;
@@ -164,6 +133,178 @@ section#copy-right{
 }
 p#footer-page{
     font-weight: bold;
+}
+
+/* MANAGER */
+
+li.manager:hover{
+    background: linear-gradient(to left, #973b50, #f15d9a, #c88b96);
+    border: none;
+}
+h5.manager{
+    border-left: 2px solid #973b50;
+    padding: .2rem 0 .2rem .5rem;
+    color: #000;
+}
+div#manager-mobile{
+    display: none;
+    text-align: center;
+}
+a.manager-mobile, a.manager-mobile-2, a.manager-mobile-3{
+    background: linear-gradient(to right, #973b50, #f15d9a, #c88b96);
+    border: none;
+    color: #000;
+    font-weight: bold;
+}
+a.manager-mobile:hover, a.manager-mobile-2:hover, a.manager-mobile-3:hover{
+    background: linear-gradient(to right, #973b50, #f15d9a, #c88b96);
+    color: #000;
+    text-decoration: underline;
+}
+a.manager-mobile, a.manager-mobile-2{
+    margin-right: 1rem !important;
+}
+a.current{
+    text-decoration: underline;
+}
+
+/* TABLA DE REGISTRO */
+
+form.register{
+    background-image: url("../assets/pink-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 1rem !important;
+    margin-top: 1rem;
+    border-radius: 15px;
+}
+p#selectHelp{
+    margin: 0;
+    color: #000;
+    font-weight: bold;
+    text-indent: 1.5rem;
+}
+h4.register{
+    border-left: 5px solid #973b50;
+    border-right: 5px solid #973b50;
+    padding: .4rem 0 .4rem .6rem !important;
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+}
+label.formulary{
+    margin: 0;
+    font-weight: bold;
+}
+p.counter{
+    margin: 0;
+    text-align: right;
+}
+div.add-product{
+    text-align: center;
+}
+input.add, input.reset{
+    background-color: #973b50;
+    border: none;
+    color: #000;
+}
+input.add:hover, input.reset:hover{
+    background-color: #973b50;
+    color: #000;
+    font-weight: bold;
+    text-decoration: underline;
+}
+input.add{
+    margin-right: .5rem;
+}
+
+/* DATOS DE PRODUCTOS REGISTRADOS */
+
+button.products{
+    background: linear-gradient(to left, #973b50, #f15d9a, #c88b96);
+    border: none;
+    font-size: large;
+}
+button.products:not(.collapse){
+    color: #000;
+}
+button.search{
+    background-color: #009e93;
+    padding: .5rem;
+    margin-bottom: .5rem;
+}
+div.search-space{
+    background: none;
+    border: none;
+}
+div.search-alert{
+    margin-bottom: 0;
+}
+thead.products, tbody.products{
+    text-align: center;
+}
+thead.products{
+    background: linear-gradient(to right, #009e93, #87e1dd);
+}
+button.description, button.description:hover, button.description:not(.collapse){
+    background-color: #009e93;
+    border: none;
+    color: #000;
+}
+ul.manager-products{
+    background: linear-gradient(to top, #009e93, #87e1dd);
+    padding: .5rem;
+}
+p.manager-products{
+    margin: 0;
+}
+
+/* MANAGER PACKS */
+
+p.manager-title, p.manager-code{
+    text-align: center;
+    font-weight: bold;
+    margin: 0;
+}
+p.manager-name{
+    margin: 0;
+    font-size: small;
+}
+
+/* DATA PAGES */
+
+a.data-page, button.back{
+    background: linear-gradient(to left, #973b50, #f15d9a, #c88b96);
+    border: none;
+    color: #000;
+}
+a.data-page:hover, button.back:hover{
+    background: linear-gradient(to left, #973b50, #f15d9a, #c88b96);
+    border: none;
+    color: #000;
+    font-weight: bold;
+    text-decoration: underline;
+}
+a.data-page-2, a.data-page-3{
+    background-color: #973b50;
+    border: none;
+    color: #000;
+}
+a.data-page-2:hover, a.data-page-3:hover{
+    background-color: #973b50;
+    border: none;
+    color: #000;
+    font-weight: bold;
+    text-decoration: underline;
+}
+a.data-page-2{
+    margin-right: .5rem;
+}
+img.img-data{
+    margin-bottom: 1rem;
+    width: 250px !important;
+    height: 250px !important;
+    border-radius: 50%;
 }
 
 @media screen and (max-width: 1024px) {
@@ -203,14 +344,14 @@ p#footer-page{
     }
 
     /* FOOTER */
-    a.social-icon{
-        margin-right: .8vw !important;
-    }
-    img.social{
-        width: 40px !important;
-    }
     div.navbar-2{
         width: 150px !important;
+    }
+
+    /* DATA PAGES */
+    img.img-data{
+        width: 200px !important;
+        height: 200px !important;
     }
 }
 
@@ -221,14 +362,28 @@ p#footer-page{
     }
 
     /* FOOTER */
-    a.social-icon{
-        margin-right: 2vw !important;
-    }
     div.navbar-2{
         width: 250px !important;
     }
     p#footer-page{
         font-size: 14px !important;
+    }
+
+    /* MANAGER */
+    ul#manager-desktop{
+        display: none;
+    }
+    div#manager-mobile{
+        display: block;
+    }
+
+    /* DATA PAGES */
+    a.data-page, button.back{
+        margin-bottom: 1rem;
+    }
+    img.img-data{
+        width: 250px !important;
+        height: 250px !important;
     }
 }
 
@@ -269,13 +424,21 @@ p#footer-page{
     }
 
     /* FOOTER */
-    a.social-icon{
-        margin-right: 1vw !important;
-    }
-    img.social{
-        width: 30px !important;
-    }
     p#footer-page{
         font-size: 10px !important;
+    }
+
+    /* MANAGER */
+    a.manager-mobile, a.manager-mobile-2{
+        margin-bottom: .5rem !important;
+    }
+    a.manager-mobile-2{
+        margin-right: 0 !important;
+    }
+
+    /* DATA PAGES */
+    img.img-data{
+        width: 200px !important;
+        height: 200px !important;
     }
 }

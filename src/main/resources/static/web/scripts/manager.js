@@ -40,7 +40,17 @@ const app = Vue.createApp({
             },
             filterConditioner: [],
             searchConditioner: "",
-            noConditioner: false
+            noConditioner: false,
+
+            /* PACK*/
+            listPacks: [],
+            listPackID: [],
+            pack:{
+                code: "", namePack: "", idShampoo: "", idConditioner: "", idSoap:"", price: "", imgShampoo: "", imgConditioner: "", imgSoap: ""
+            },
+            filterPack: [],
+            searchPack: "",
+            noPack: false
         }
     },
     created(){
@@ -52,7 +62,9 @@ const app = Vue.createApp({
         this.loadShampoos(),
         this.loadShampooID(),
         this.loadConditioners(),
-        this.loadConditionerID()
+        this.loadConditionerID(),
+        this.loadPacks(),
+        this.loadPackID()
     },
     methods:{
         loadClientCurrent(){
@@ -583,6 +595,135 @@ const app = Vue.createApp({
         },
 
         /* DATA PACKS */
+
+        loadPacks(){
+            axios.get("/api/admin/packs")
+            .then(response => {
+                this.listPacks = response.data
+
+                this.orderByID(this.listPacks)
+            })
+        },
+        loadPackID(){
+            const urlParams = new URLSearchParams(window.location.search);
+            this.packID = urlParams.get("id");
+
+            axios.get(`/api/admin/packs/${this.packID}`)
+            .then(response => {
+                this.listPackID = response.data
+
+                this.pack.code = response.data.code
+                this.pack.namePack = response.data.namePack
+                this.pack.idShampoo = response.data.shampoo.id
+                this.pack.idConditioner = response.data.conditioner.id
+                this.pack.idSoap = response.data.soap.id
+                this.pack.price = response.data.price
+                this.pack.imgShampoo = response.data.shampoo.url
+                this.pack.imgConditioner = response.data.conditioner.url
+                this.pack.imgSoap = response.data.soap.url
+            })
+        },
+        addPack(){
+            swal({
+                title: "Confirmación",
+                text: "¿Está seguro de querer registrar este combo?",
+                icon: "warning",
+                buttons: true
+            })
+            .then(confirmation => {
+                if(confirmation){
+                    axios.post("/api/admin/packs",{
+                        namePack: this.pack.namePack,
+                        idShampoo: this.pack.idShampoo,
+                        idConditioner: this.pack.idConditioner,
+                        idSoap: this.pack.idSoap,
+                        price: this.pack.price
+                    })
+                    .then(response => {
+                        swal({
+                            title: "Datos guardados",
+                            icon: "success",
+                            button: true
+                        })
+                        .then(response =>{
+                            window.location.reload()
+                        })
+                    })
+                    .catch(error => {
+                        swal({
+                            title: "¡Atención!",
+                            text: error.response.data,
+                            icon: "error"
+                        })
+                    })
+                }
+            })
+        },
+        changeDataPack(){
+            const urlParams = new URLSearchParams(window.location.search);
+            this.packID = urlParams.get("id");
+
+            swal({
+                title: "Confirmación",
+                text: "¿Está seguro de querer guardar los nuevos datos?",
+                icon: "warning",
+                buttons: true
+            })
+            .then(confirmation => {
+                if(confirmation){
+                    axios.put(`/api/admin/packs/${this.packID}`,{
+                        namePack: this.pack.namePack,
+                        idShampoo: this.pack.idShampoo,
+                        idConditioner: this.pack.idConditioner,
+                        idSoap: this.pack.idSoap,
+                        price: this.pack.price
+                    })
+                    .then(response => {
+                        swal({
+                            title: "Datos guardados",
+                            icon: "success",
+                            button: true
+                        })
+                        .then(response =>{
+                            window.location.reload()
+                        })
+                    })
+                    .catch(error => {
+                        swal({
+                            title: "¡Atención!",
+                            text: error.response.data,
+                            icon: "error"
+                        })
+                    })
+                }
+            })
+        },
+        deletePack(){
+            const urlParams = new URLSearchParams(window.location.search);
+            this.packID = urlParams.get("id");
+
+            swal({
+                title: "Confirmación",
+                text: "¿Está seguro de querer eliminar este combo?",
+                icon: "warning",
+                buttons: true
+            })
+            .then(confirmation => {
+                if(confirmation){
+                    axios.delete(`/api/admin/packs/${this.packID}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                    .then(response => {
+                        swal({
+                            title: "Combo eliminado",
+                            icon: "success",
+                            button: true
+                        })
+                        .then(response =>{
+                            window.location.replace("manager-packs.html")
+                        })
+                    })
+                }
+            })
+        },
         
         /* FUNCTIONS */
         momentFooter(date){
@@ -656,7 +797,7 @@ const app = Vue.createApp({
             }
         },
         searchConditioners(){
-            this.filterConditioner = this.listConditioners.filter(book => book.code.toLowerCase().includes(this.searchConditioner.toLowerCase()));
+            this.filterConditioner = this.listConditioners.filter(conditioner => conditioner.code.toLowerCase().includes(this.searchConditioner.toLowerCase()));
 
             this.noSearchConditioner;
             return this.filterConditioner
@@ -666,6 +807,19 @@ const app = Vue.createApp({
                 return this.noConditioner = true
             }else{
                 return this.noConditioner = false
+            }
+        },
+        searchPacks(){
+            this.filterPack = this.listPacks.filter(pack => pack.code.toLowerCase().includes(this.searchPack.toLowerCase()));
+
+            this.noSearchPack;
+            return this.filterPack
+        },
+        noSearchPack(){
+            if(this.filterPack.length === 0){
+                return this.noPack = true
+            }else{
+                return this.noPack = false
             }
         },
 

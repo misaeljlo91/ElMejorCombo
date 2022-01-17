@@ -12,7 +12,6 @@ public class PackProduct {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private Long id;
-    private String code;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pack_id")
@@ -33,8 +32,7 @@ public class PackProduct {
     //CONSTRUCTORES
     public PackProduct() { }
 
-    public PackProduct(String code, Pack pack, Shampoo shampoo, Conditioner conditioner, Soap soap) {
-        this.code = code;
+    public PackProduct(Pack pack, Shampoo shampoo, Conditioner conditioner, Soap soap) {
         this.pack = pack;
         this.shampoo = shampoo;
         this.conditioner = conditioner;
@@ -43,7 +41,6 @@ public class PackProduct {
 
     //GETTER
     public Long getId() {return id;}
-    public String getCode() {return code;}
 
     @JsonIgnore
     public Pack getPack() {return pack;}
@@ -59,7 +56,6 @@ public class PackProduct {
 
     //SETTER
     public void setId(Long id) {this.id = id;}
-    public void setCode(String code) {this.code = code;}
     public void setPack(Pack pack) {this.pack = pack;}
     public void setShampoo(Shampoo shampoo) {this.shampoo = shampoo;}
     public void setConditioner(Conditioner conditioner) {this.conditioner = conditioner;}

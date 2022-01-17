@@ -23,7 +23,7 @@ public class Soap {
     private double price;
     private int stock;
 
-    @OneToMany(mappedBy = "conditioner", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "soap", fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<PackProduct> packProducts = new HashSet<>();
 
     //CONSTRUCTORES

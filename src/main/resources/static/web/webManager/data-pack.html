@@ -43,51 +43,79 @@
     <main>
         <div class="row g-0">
             <div class="col-md-2">
-                <button type="button" class="btn btn-primary back" onclick="history.go(-1)">Volver</button>
+                <a class="btn btn-primary data-page" href="manager-packs.html" role="button">Volver</a>
             </div>
             <div class="col-md-8">
                 <form class="register" style="margin-top: 0;">
-                    <h4 class="register">Registro del acondicionador Nro. {{conditioner.code}}</h4>
+                    <h4 class="register">Registro del combo Nro. {{pack.code}}</h4>
                     <div class="row justify-content-around">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="nameConditioner" class="form-label formulary">Nombre del producto:</label>
-                                <input v-model="conditioner.name" type="text" class="form-control" id="nameConditioner" required>
+                                <label for="namePack" class="form-label formulary">Nombre del combo:</label>
+                                <input v-model="pack.namePack" type="text" class="form-control" id="namePack" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="descriptionConditioner" class="form-label formulary">Descripción del produto:</label>
-                                <textarea v-model="conditioner.description" class="form-control" maxlength="180" id="descriptionConditioner" rows="2" required></textarea>
-                                <p class="counter">{{counterConditioner}}/180</p>
-                            </div>
-                            <div class="mb-3">
-                                <label for="urlConditioner" class="form-label formulary">Imagen:</label>
-                                <input v-model="conditioner.url" type="text" class="form-control" id="urlConditioner" required>
-                            </div>
+                            <label class="form-label formulary">Productos:</label>
+                            <p class="form-text" style="color: #000;">Por favor, seleccione los productos que desee cambiar al combo.</p>
                             <div class="row">
-                                <div class="col mb-3">
-                                    <label for="priceConditioner" class="form-label formulary">Precio:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-text">$</div>
-                                        <input v-model="conditioner.price" type="number" class="form-control" id="priceConditioner" required>
-                                    </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="shampoo" class="form-label formulary">Champú:</label>
+                                    <select v-model="pack.idShampoo" class="form-select" id="shampoo" aria-label="Default select example">
+                                        <option v-for="shampoo in listShampoos" :value="shampoo.id">{{shampoo.code}}</option>
+                                    </select>
                                 </div>
-                                <div class="col mb-3">
-                                    <label for="stockConditioner" class="form-label formulary">Stock:</label>
-                                    <input v-model="conditioner.stock" type="number" class="form-control" id="stockConditioner" required>
+                                <div class="col-md-4 mb-3">
+                                    <label for="conditioner" class="form-label formulary">Conds.*:</label>
+                                    <select v-model="pack.idConditioner" class="form-select" id="conditioner" aria-label="Default select example">
+                                        <option v-for="conditioner in listConditioners" :value="conditioner.id">{{conditioner.code}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="soap" class="form-label formulary">Jabón:</label>
+                                    <select v-model="pack.idSoap" class="form-select" id="soap" aria-label="Default select example">
+                                        <option v-for="soap in listSoaps" :value="soap.id">{{soap.code}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <p class="form-text" style="color: #000;">* Conds.: Acondicionador</p>
+                            <div class="col mb-3">
+                                <label for="pricePack" class="form-label formulary">Precio:</label>
+                                <div class="input-group">
+                                    <div class="input-group-text">$</div>
+                                    <input v-model="pack.price" type="number" class="form-control" id="pricePack" required>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 align-self-center" style="text-align: center; user-select: none;">
-                            <img :src="conditioner.url" alt="Imagen del producto">
+                            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img :src="pack.imgShampoo" alt="Champú">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img :src="pack.imgConditioner" alt="Acondicionador">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img :src="pack.imgSoap" alt="Jabón">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Anterior</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Siguiente</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="form-floating add-product">
-                        <a class="btn btn-primary data-page-2" href="" role="button" @click.prevent="changeDataConditioner">Guardar</a>
-                        <a class="btn btn-primary data-page-3" href="" role="button" @click.prevent="deleteConditioner">Eliminar</a>
+                        <a class="btn btn-primary data-page-2" href="" role="button" @click.prevent="changeDataPack">Guardar</a>
+                        <a class="btn btn-primary data-page-3" href="" role="button" @click.prevent="deletePack">Eliminar</a>
                     </div>
                 </form>
             </div>
-        </div>
+        </div>      
     </main>
 <!-- PIE DE PÁGINA -->
     <footer>

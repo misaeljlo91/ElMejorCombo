@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Combos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/manager.css">
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -57,12 +57,126 @@
             <a class="btn btn-primary manager-mobile-2" href="manager-products.html" role="button">Productos</a>
             <a class="btn btn-primary manager-mobile-3 current" href="manager-packs.html" role="button">Combos</a>
         </div>
-        <div class="row g-0">
+        <div class="row justify-content-around">
             <div class="col-md-4">
-
+                <form class="register" @submit.prevent="addPack">
+                    <h4 class="register">Nuevo combo</h4>
+                    <div class="mb-3">
+                        <label for="namePack" class="form-label formulary">Nombre del combo:</label>
+                        <input v-model="pack.namePack" type="text" class="form-control" id="namePack" placeholder="Nombre del combo" required>
+                    </div>
+                    <label class="form-label formulary">Productos:</label>
+                    <p class="form-text" style="color: #000;">Por favor, seleccione los productos que desee agregar al combo.</p>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="shampoo" class="form-label formulary">Champú:</label>
+                            <select v-model="pack.idShampoo" class="form-select" id="shampoo" aria-label="Default select example">
+                                <option v-for="shampoo in listShampoos" :value="shampoo.id">{{shampoo.code}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="conditioner" class="form-label formulary">Conds.*:</label>
+                            <select v-model="pack.idConditioner" class="form-select" id="conditioner" aria-label="Default select example">
+                                <option v-for="conditioner in listConditioners" :value="conditioner.id">{{conditioner.code}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="soap" class="form-label formulary">Jabón:</label>
+                            <select v-model="pack.idSoap" class="form-select" id="soap" aria-label="Default select example">
+                                <option v-for="soap in listSoaps" :value="soap.id">{{soap.code}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p class="form-text" style="color: #000;">* Conds.: Acondicionador</p>
+                    <div class="mb-3">
+                        <label for="price" class="form-label formulary">Precio:</label>
+                        <div class="input-group">
+                            <div class="input-group-text">$</div>
+                            <input v-model="pack.price" type="number" class="form-control" id="price" placeholder="0" required>
+                        </div>
+                    </div>
+                    <div class="form-floating add-product">
+                        <input class="btn btn-primary add" type="submit" value="Registrar">
+                        <input class="btn btn-primary reset" type="reset" value="Limpiar">
+                    </div>
+                </form>
             </div>
-            <div class="col-md-8">
-
+            <div class="col-md-8" style="margin-top: 1rem;">
+                <div class="col-12">
+                    <button class="navbar-toggler search" type="button" data-bs-toggle="dropdown" data-bs-target="#search-button" aria-controls="search-button" aria-expanded="false" aria-label="Toggle navigation" style="float: right;"><img src="../assets/search.png" alt="Search"></button>
+                    <div class="navbar-collapse dropdown-menu search-space">
+                        <input class="form-control" type="search" placeholder="Nro. combo" aria-label="Buscar" v-model="searchPack">
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <thead class="products">
+                        <tr>
+                            <th scope="col">Nro. combo</th>
+                            <th scope="col">Nombre del combo</th>
+                            <th scope="col">Productos</th>
+                            <th scope="col">Precio AR $</th>
+                            <th scope="col">Detalles</th>
+                        </tr>
+                    </thead>
+                    <tbody class="products">
+                        <tr v-if="noSearchPack">
+                            <td colspan="7">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                    </symbol>
+                                </svg>
+                                <div class="alert alert-danger d-flex align-items-center search-alert" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                    <div>No se encontraron resultados para esta búsqueda.</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody class="products">
+                        <tr v-for="pack in searchPacks">
+                            <td style="padding-top: .8rem;">{{pack.code}}</td>
+                            <td style="padding-top: .8rem;">{{pack.namePack}}</td>
+                            <td class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle description" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Ver productos</button>
+                                <ul class="dropdown-menu manager-products" aria-labelledby="dropdownMenuButton1">
+                                    <li class="row">
+                                        <div class="col-4 align-self-center">
+                                            <a :href="'data-shampoo.html?id=' + pack.shampoo.id"><div id="avatar" :style="{backgroundImage: 'url('+pack.shampoo.url+')'}"></div></a>
+                                        </div>
+                                        <div class="col-8">
+                                            <p class="manager-title">Champú</p>
+                                            <p class="manager-code">Nro. {{pack.shampoo.code}}</p>
+                                            <p class="manager-name">{{pack.shampoo.name}}</p>
+                                        </div>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-4 align-self-center">
+                                            <a :href="'data-conditioner.html?id=' + pack.conditioner.id"><div id="avatar" :style="{backgroundImage: 'url('+pack.conditioner.url+')'}"></div></a>
+                                        </div>
+                                        <div class="col-8">
+                                            <p class="manager-title">Conds.</p>
+                                            <p class="manager-code">Nro. {{pack.conditioner.code}}</p>
+                                            <p class="manager-name">{{pack.conditioner.name}}</p>
+                                        </div>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-4 align-self-center">
+                                            <a :href="'data-soap.html?id=' + pack.soap.id"><div id="avatar" :style="{backgroundImage: 'url('+pack.soap.url+')'}"></div></a>
+                                        </div>
+                                        <div class="col-8">
+                                            <p class="manager-title">Jabón</p>
+                                            <p class="manager-code">Nro. {{pack.soap.code}}</p>
+                                            <p class="manager-name">{{pack.soap.name}}</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td style="padding-top: .8rem;">{{formatPrice(pack.price)}}</td>
+                            <td style="padding-top: .8rem;"><a :href="'data-pack.html?id=' + pack.id"><img src="../assets/view-details.png" alt="Detalles"></a></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>

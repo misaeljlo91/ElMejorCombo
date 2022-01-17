@@ -13,6 +13,7 @@ public class PackProductDTO {
     private Shampoo shampoo;
     private Conditioner conditioner;
     private Soap soap;
+    private double price;
 
 
     //CONSTRUCTORES
@@ -20,11 +21,12 @@ public class PackProductDTO {
 
     public PackProductDTO(PackProduct packProduct) {
         this.id = packProduct.getId();
-        this.code = packProduct.getCode();
+        this.code = packProduct.getPack().getCode();
         this.namePack = packProduct.getPack().getNamePack();
         this.shampoo = packProduct.getShampoo();
         this.conditioner = packProduct.getConditioner();
         this.soap = packProduct.getSoap();
+        this.price = packProduct.getPack().getPrice();
     }
 
     //GETTER
@@ -34,6 +36,7 @@ public class PackProductDTO {
     public Shampoo getShampoo() {return shampoo;}
     public Conditioner getConditioner() {return conditioner;}
     public Soap getSoap() {return soap;}
+    public double getPrice() {return price;}
 
     //SETTER
     public void setId(Long id) {this.id = id;}
@@ -42,4 +45,5 @@ public class PackProductDTO {
     public void setShampoo(Shampoo shampoo) {this.shampoo = shampoo;}
     public void setConditioner(Conditioner conditioner) {this.conditioner = conditioner;}
     public void setSoap(Soap soap) {this.soap = soap;}
+    public void setPrice(double price) {this.price = price;}
 }

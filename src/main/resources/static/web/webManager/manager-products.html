@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/manager.css">
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -221,6 +221,7 @@
                                 <table class="table table-hover">
                                     <thead class="products">
                                         <tr>
+                                            <th scope="col"></th>
                                             <th scope="col">Nro. producto</th>
                                             <th scope="col">Nombre</th>
                                             <th scope="col">Descripción</th>
@@ -246,17 +247,18 @@
                                     </tbody>
                                     <tbody class="products">
                                         <tr v-for="soap in searchSoaps">
-                                            <td>{{soap.code}}</td>
-                                            <td>{{soap.name}}</td>
-                                            <td class="dropdown">
+                                            <td><div id="avatar" :style="{backgroundImage: 'url('+soap.url+')'}"></div></td>
+                                            <td style="padding-top: 1.3rem;">{{soap.code}}</td>
+                                            <td style="padding-top: 1.3rem;">{{soap.name}}</td>
+                                            <td class="dropdown" style="padding-top: .8rem;">
                                                 <button class="btn btn-secondary dropdown-toggle description" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Ver descripción</button>
                                                 <ul class="dropdown-menu manager-products" aria-labelledby="dropdownMenuButton1">
                                                     <li><p class="manager-products">{{soap.description}}</p></li>
                                                 </ul>
                                             </td>
-                                            <td>{{formatPrice(soap.price)}}</td>
-                                            <td>{{soap.stock}}</td>
-                                            <td><a :href="'data-soap.html?id=' + soap.id"><img src="../assets/view-details.png" alt="Detalles"></a></td>
+                                            <td style="padding-top: 1.3rem;">{{formatPrice(soap.price)}}</td>
+                                            <td style="padding-top: 1.3rem;">{{soap.stock}}</td>
+                                            <td style="padding-top: 1.3rem;"><a :href="'data-soap.html?id=' + soap.id"><img src="../assets/view-details.png" alt="Detalles"></a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -278,6 +280,7 @@
                                 <table class="table table-hover">
                                     <thead class="products">
                                         <tr>
+                                            <th scope="col"></th>
                                             <th scope="col">Nro. producto</th>
                                             <th scope="col">Nombre</th>
                                             <th scope="col">Descripción</th>
@@ -303,17 +306,18 @@
                                     </tbody>
                                     <tbody class="products">
                                         <tr v-for="shampoo in searchShampoos">
-                                            <td>{{shampoo.code}}</td>
-                                            <td>{{shampoo.name}}</td>
-                                            <td class="dropdown">
+                                            <td><div id="avatar" :style="{backgroundImage: 'url('+shampoo.url+')'}"></div></td>
+                                            <td style="padding-top: 1.3rem;">{{shampoo.code}}</td>
+                                            <td style="padding-top: 1.3rem;">{{shampoo.name}}</td>
+                                            <td class="dropdown" style="padding-top: .8rem;">
                                                 <button class="btn btn-secondary dropdown-toggle description" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Ver descripción</button>
                                                 <ul class="dropdown-menu manager-products" aria-labelledby="dropdownMenuButton1">
                                                     <li><p class="manager-products">{{shampoo.description}}</p></li>
                                                 </ul>
                                             </td>
-                                            <td>{{shampoo.price}}</td>
-                                            <td>{{shampoo.stock}}</td>
-                                            <td><a :href="'data-shampoo.html?id=' + shampoo.id"><img src="../assets/view-details.png" alt="Detalles"></a></td>
+                                            <td style="padding-top: 1.3rem;">{{shampoo.price}}</td>
+                                            <td style="padding-top: 1.3rem;">{{shampoo.stock}}</td>
+                                            <td style="padding-top: 1.3rem;"><a :href="'data-shampoo.html?id=' + shampoo.id"><img src="../assets/view-details.png" alt="Detalles"></a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -335,6 +339,7 @@
                                 <table class="table table-hover">
                                     <thead class="products">
                                         <tr>
+                                            <th scope="col"></th>
                                             <th scope="col">Nro. producto</th>
                                             <th scope="col">Nombre</th>
                                             <th scope="col">Descripción</th>
@@ -360,17 +365,18 @@
                                     </tbody>
                                     <tbody class="products">
                                         <tr v-for="conditioner in searchConditioners">
-                                            <td>{{conditioner.code}}</td>
-                                            <td>{{conditioner.name}}</td>
-                                            <td class="dropdown">
+                                            <td><div id="avatar" :style="{backgroundImage: 'url('+conditioner.url+')'}"></div></td>
+                                            <td style="padding-top: 1.3rem;">{{conditioner.code}}</td>
+                                            <td style="padding-top: 1.3rem;">{{conditioner.name}}</td>
+                                            <td class="dropdown" style="padding-top: .8rem;">
                                                 <button class="btn btn-secondary dropdown-toggle description" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Ver descripción</button>
                                                 <ul class="dropdown-menu manager-products" aria-labelledby="dropdownMenuButton1">
                                                     <li><p class="manager-products">{{conditioner.description}}</p></li>
                                                 </ul>
                                             </td>
-                                            <td>{{conditioner.price}}</td>
-                                            <td>{{conditioner.stock}}</td>
-                                            <td><a :href="'data-conditioner.html?id=' + conditioner.id"><img src="../assets/view-details.png" alt="Detalles"></a></td>
+                                            <td style="padding-top: 1.3rem;">{{conditioner.price}}</td>
+                                            <td style="padding-top: 1.3rem;">{{conditioner.stock}}</td>
+                                            <td style="padding-top: 1.3rem;"><a :href="'data-conditioner.html?id=' + conditioner.id"><img src="../assets/view-details.png" alt="Detalles"></a></td>
                                         </tr>
                                     </tbody>
                                 </table>

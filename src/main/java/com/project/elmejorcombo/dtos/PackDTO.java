@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 public class PackDTO {
 
     private Long id;
+    private String code;
     private String namePack;
     private double price;
     private Set<PackProductDTO> packProducts;
@@ -17,6 +18,7 @@ public class PackDTO {
 
     public PackDTO(Pack pack) {
         this.id = pack.getId();
+        this.code = pack.getCode();
         this.namePack = pack.getNamePack();
         this.price = pack.getPrice();
         this.packProducts = pack.getPackProducts().stream().map(PackProductDTO::new).collect(Collectors.toSet());
@@ -24,12 +26,14 @@ public class PackDTO {
 
     //GETTER
     public Long getId() {return id;}
+    public String getCode() {return code;}
     public String getNamePack() {return namePack;}
     public double getPrice() {return price;}
     public Set<PackProductDTO> getPackProducts() {return packProducts;}
 
     //SETTER
     public void setId(Long id) {this.id = id;}
+    public void setCode(String code) {this.code = code;}
     public void setNamePack(String namePack) {this.namePack = namePack;}
     public void setPrice(double price) {this.price = price;}
 }
