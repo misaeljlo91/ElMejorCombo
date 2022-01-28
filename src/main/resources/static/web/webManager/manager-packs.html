@@ -65,38 +65,100 @@
                         <label for="namePack" class="form-label formulary">Nombre del combo:</label>
                         <input v-model="pack.namePack" type="text" class="form-control" id="namePack" placeholder="Nombre del combo" required>
                     </div>
-                    <label class="form-label formulary">Productos:</label>
+                    <div class="mb-3">
+                        <label for="products" class="form-label formulary">Productos:</label>
+                        <select v-model="selected" class="form-select" id="products" aria-label="Default select example">
+                            <option value="" selected disabled>Seleccione</option>
+                            <option value="SCS">Champú + Acondicionador + Jabón</option>
+                            <option value="SC">Champú + Acondicionador</option>
+                        </select>
+                    </div>
                     <p class="form-text" style="color: #000;">Por favor, seleccione los productos que desee agregar al combo.</p>
-                    <div class="row">
+                    <div class="row" v-if="selected === ''">
                         <div class="col-md-4 mb-3">
-                            <label for="shampoo" class="form-label formulary">Champú:</label>
-                            <select v-model="pack.idShampoo" class="form-select" id="shampoo" aria-label="Default select example">
+                            <label for="shampoo1" class="form-label formulary">Champú:</label>
+                            <select class="form-select" id="shampoo1" aria-label="Default select example" disabled>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="conditioner1" class="form-label formulary">Conds.*:</label>
+                            <select class="form-select" id="conditioner1" aria-label="Default select example" disabled>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="soap1" class="form-label formulary">Jabón:</label>
+                            <select class="form-select" id="soap1" aria-label="Default select example" disabled>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" v-if="selected === 'SCS'">
+                        <div class="col-md-4 mb-3">
+                            <label for="shampoo2" class="form-label formulary">Champú:</label>
+                            <select v-model="pack.idShampoo" class="form-select" id="shampoo2" aria-label="Default select example">
                                 <option v-for="shampoo in listShampoos" :value="shampoo.id">{{shampoo.code}}</option>
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="conditioner" class="form-label formulary">Conds.*:</label>
-                            <select v-model="pack.idConditioner" class="form-select" id="conditioner" aria-label="Default select example">
+                            <label for="conditioner2" class="form-label formulary">Conds.*:</label>
+                            <select v-model="pack.idConditioner" class="form-select" id="conditioner2" aria-label="Default select example">
                                 <option v-for="conditioner in listConditioners" :value="conditioner.id">{{conditioner.code}}</option>
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="soap" class="form-label formulary">Jabón:</label>
-                            <select v-model="pack.idSoap" class="form-select" id="soap" aria-label="Default select example">
+                            <label for="soap2" class="form-label formulary">Jabón:</label>
+                            <select v-model="pack.idSoap" class="form-select" id="soap2" aria-label="Default select example">
                                 <option v-for="soap in listSoaps" :value="soap.id">{{soap.code}}</option>
                             </select>
                         </div>
                     </div>
+                    <div class="row" v-if="selected === 'SC'">
+                        <div class="col-md-4 mb-3">
+                            <label for="shampoo3" class="form-label formulary">Champú:</label>
+                            <select v-model="pack.idShampoo" class="form-select" id="shampoo3" aria-label="Default select example">
+                                <option v-for="shampoo in listShampoos" :value="shampoo.id">{{shampoo.code}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="conditioner3" class="form-label formulary">Conds.*:</label>
+                            <select v-model="pack.idConditioner" class="form-select" id="conditioner3" aria-label="Default select example">
+                                <option v-for="conditioner in listConditioners" :value="conditioner.id">{{conditioner.code}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="soap3" class="form-label formulary">Jabón:</label>
+                            <select class="form-select" id="soap3" aria-label="Default select example" disabled>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
                     <p class="form-text" style="color: #000;">* Conds.: Acondicionador</p>
-                    <div class="mb-3">
-                        <label for="price" class="form-label formulary">Precio:</label>
-                        <div class="input-group">
-                            <div class="input-group-text">$</div>
-                            <input v-model="pack.price" type="number" class="form-control" id="price" placeholder="0" required>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="typeClient" class="form-label formulary">Tipo de cliente:</label>
+                            <select v-model="pack.typeClient" class="form-select" id="typeClient" aria-label="Default select example">
+                                <option value="" selected disabled>Seleccione</option>
+                                <option value="Unisex">Unisex</option>
+                                <option value="Men">Hombres</option>
+                                <option value="Women">Mujeres</option>
+                                <option value="Children">Niños/as</option>
+                                <option value="Babies">Bebés</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="price" class="form-label formulary">Precio:</label>
+                            <div class="input-group">
+                                <div class="input-group-text">$</div>
+                                <input v-model="pack.price" type="number" class="form-control" id="price" placeholder="0" required>
+                            </div>
                         </div>
                     </div>
                     <div class="form-floating add-product">
-                        <input class="btn btn-primary add" type="submit" value="Registrar">
+                        <a class="btn btn-primary data-page-2" href="" role="button" v-if="selected === ''">Registrar</a>
+                        <a class="btn btn-primary data-page-2" href="" role="button" @click.prevent="addPackSCS" v-if="selected === 'SCS'">Registrar</a>
+                        <a class="btn btn-primary data-page-2" href="" role="button" @click.prevent="addPackSC" v-if="selected === 'SC'">Registrar</a>
                         <input class="btn btn-primary reset" type="reset" value="Limpiar">
                     </div>
                 </form>
@@ -114,6 +176,7 @@
                             <th scope="col">Nro. combo</th>
                             <th scope="col">Nombre del combo</th>
                             <th scope="col">Productos</th>
+                            <th scope="col">Cliente</th>
                             <th scope="col">Precio AR $</th>
                             <th scope="col">Detalles</th>
                         </tr>
@@ -137,7 +200,7 @@
                         <tr v-for="pack in searchPacks">
                             <td style="padding-top: .8rem;">{{pack.code}}</td>
                             <td style="padding-top: .8rem;">{{pack.namePack}}</td>
-                            <td class="dropdown">
+                            <td class="dropdown" v-if="pack.soap.id != 3">
                                 <button class="btn btn-secondary dropdown-toggle description" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Ver productos</button>
                                 <ul class="dropdown-menu manager-products" aria-labelledby="dropdownMenuButton1">
                                     <li class="row">
@@ -172,6 +235,32 @@
                                     </li>
                                 </ul>
                             </td>
+                            <td class="dropdown" v-if="pack.soap.id === 3">
+                                <button class="btn btn-secondary dropdown-toggle description" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Ver productos</button>
+                                <ul class="dropdown-menu manager-products" aria-labelledby="dropdownMenuButton1">
+                                    <li class="row">
+                                        <div class="col-4 align-self-center">
+                                            <a :href="'data-shampoo.html?id=' + pack.shampoo.id"><div id="avatar" :style="{backgroundImage: 'url('+pack.shampoo.url+')'}"></div></a>
+                                        </div>
+                                        <div class="col-8">
+                                            <p class="manager-title">Champú</p>
+                                            <p class="manager-code">Nro. {{pack.shampoo.code}}</p>
+                                            <p class="manager-name">{{pack.shampoo.name}}</p>
+                                        </div>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-4 align-self-center">
+                                            <a :href="'data-conditioner.html?id=' + pack.conditioner.id"><div id="avatar" :style="{backgroundImage: 'url('+pack.conditioner.url+')'}"></div></a>
+                                        </div>
+                                        <div class="col-8">
+                                            <p class="manager-title">Conds.</p>
+                                            <p class="manager-code">Nro. {{pack.conditioner.code}}</p>
+                                            <p class="manager-name">{{pack.conditioner.name}}</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td style="padding-top: .8rem;">{{pack.typeClient}}</td>
                             <td style="padding-top: .8rem;">{{formatPrice(pack.price)}}</td>
                             <td style="padding-top: .8rem;"><a :href="'data-pack.html?id=' + pack.id"><img src="../assets/view-details.png" alt="Detalles"></a></td>
                         </tr>

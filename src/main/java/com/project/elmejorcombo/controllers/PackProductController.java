@@ -82,7 +82,7 @@ public class PackProductController {
 
         int code = (int)((Math.random()*(999999-100000+1))+100000);
 
-        Pack newPack = new Pack("P"+code, packProduct.getNamePack(), packProduct.getPrice());
+        Pack newPack = new Pack("P"+code, packProduct.getNamePack(), packProduct.getTypeClient(), packProduct.getPrice());
 
         packRepository.save(newPack);
         packProductRepository.save(new PackProduct(newPack, shampoo, conditioner, soap));
@@ -120,6 +120,7 @@ public class PackProductController {
         pack.setShampoo(shampoo);
         pack.setConditioner(conditioner);
         pack.setSoap(soap);
+        pack.getPack().setTypeClient(packProduct.getTypeClient());
         pack.getPack().setPrice(packProduct.getPrice());
 
         packProductRepository.save(pack);

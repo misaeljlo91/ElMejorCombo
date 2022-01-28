@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combos | El mejor combo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div id="app" v-cloak>
+<!-- ENCABEZADO -->
+    <!-- <header id="user" v-if="listClient.role == 'ADMIN' || listClient.role == 'USER'">
+        <a href="" class="d-block link-light text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;"><div id="avatar" :style="{backgroundImage: 'url('+listClient.profile+')'}"></div></a>
+        <a class="d-block text-decoration-none name-profile">{{listClient.firstname}} {{listClient.lastname}}</a>
+        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+            <li><a class="dropdown-item go-to" href="">Perfil</a></li>
+            <li><a class="dropdown-item go-to" href="">Mis compras</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item go-to" href="" @click.prevent="signOut">Cerrar sesión <img src="../assets/logout.png" alt="Sign out"></a></li>
+        </ul>
+    </header>
+    <header class="row g-0" id="sign-in" v-else>
+        <div class="col-12 sign-in">
+            <a href="../sign-in.html" class="sign-in">Iniciar sesión / Crear cuenta</a>
+        </div>
+    </header> -->
+<!-- BARRA DE NAVEGACIÓN -->
+    <nav class="navbar navbar-expand-lg navbar-1">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html"><img src="../assets/logo-no-fondo.png" alt="Logo" class="logo"></a>
+            <button class="navbar-toggler navbar" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span id="menu">&equiv;</span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link navbar-menu" id="index" href="index.html">Inicio</a>
+                    </li>
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link navbar-menu-active" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Combos</a>
+                        <ul class="dropdown-menu shadow" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item go-to" href="men.html">Hombres</a></li>
+                            <li><a class="dropdown-item go-to" href="women.html">Mujeres</a></li>
+                            <li><a class="dropdown-item go-to" href="children.html">Niños/as</a></li>
+                            <li><a class="dropdown-item go-to" href="">Bebés</a></li>
+                        </ul>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link navbar-menu-active" href="packs.html">Combos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbar-menu" href="contact.html">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="user-desktop" v-if="listClient.role == 'ADMIN' || listClient.role == 'USER'">
+                <a href="" class="d-block link-light text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" style="float: right;"><div id="avatar" :style="{backgroundImage: 'url('+listClient.profile+')'}" style="margin-right: 2rem;"></div></a>
+                <a class="d-block text-decoration-none name-profile">{{listClient.firstname}} {{listClient.lastname}}</a>
+                <ul class="dropdown-menu text-small shadow-2" aria-labelledby="dropdownUser2">
+                    <li><a class="dropdown-item go-to" href="">Perfil</a></li>
+                    <li><a class="dropdown-item go-to" href="">Mis compras</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item go-to" href="" @click.prevent="signOut">Cerrar sesión <img src="../assets/logout.png" alt="Sign out"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<!-- CONTENIDO -->
+    <main>
+        <div class="row justify-content-between">
+            <h2 class="col-md-4 subtitle">Combos</h2>
+            <form class="col-md-4">
+                <label for="busqueda" class="visually-hidden"></label>
+                <input v-model="searchPack" type="text" class="form-control" placeholder="¿Qué estás buscando?">
+            </form>
+        </div>
+        <div class="row justify-content-between">
+            <div class="col-md-3" style="user-select: none;" id="desktop">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ordenar por:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row">
+                                <label class="list-group-item">Alfabeticamente</label>
+                                <div class="form-check m-1">
+                                    <label class="form-check-label" for="a-z"><input class="form-check-input" type="radio" name="alphabet" id="a-z" @click.prevent="orderByName(listPacks, 'A-Z')">A - Z</label>
+                                </div>
+                                <div class="form-check m-1">
+                                    <label class="form-check-label" for="z-a"><input class="form-check-input" type="radio" name="alphabet" id="z-a" @click.prevent="orderByName(listPacks, 'Z-A')">Z - A</label>
+                                </div>
+                                <label class="list-group-item">Precio</label>
+                                <div class="form-check m-1">
+                                    <label class="form-check-label" for="up"><input class="form-check-input me-1 ascendente" type="radio" name="price" id="up" @click.prevent="orderByPrice(listPacks, 'DOWN')">Ascendente</label>
+                                </div>
+                                <div class="form-check m-1">
+                                    <label class="form-check-label" for="down"><input class="form-check-input" type="radio" name="price" id="down" @click.prevent="orderByPrice(listPacks, 'UP')">Descendente</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6" style="user-select: none;" id="mobile">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ordenar por:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="list-group-item">Alfabeticamente</label>
+                                        <div class="form-check m-1 form-check-inline">
+                                            <label class="form-check-label" for="a-z-2"><input class="form-check-input" type="radio" name="alphabet" id="a-z-2" @click.prevent="orderByName(listPacks, 'A-Z')">A - Z</label>
+                                        </div>
+                                        <div class="form-check m-1 form-check-inline">
+                                            <label class="form-check-label" for="z-a-2"><input class="form-check-input" type="radio" name="alphabet" id="z-a-2" @click.prevent="orderByName(listPacks, 'Z-A')">Z - A</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="list-group-item">Precio</label>
+                                        <div class="form-check m-1 form-check-inline">
+                                            <label class="form-check-label" for="up-2"><input class="form-check-input me-1 ascendente" type="radio" name="price" id="up-2" @click.prevent="orderByPrice(listPacks, 'DOWN')">Ascendente</label>
+                                        </div>
+                                        <div class="form-check m-1 form-check-inline">
+                                            <label class="form-check-label" for="down-2"><input class="form-check-input" type="radio" name="price" id="down-2" @click.prevent="orderByPrice(listPacks, 'UP')">Descendente</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-9" v-if="noSearchPack">
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </symbol>
+                </svg>
+                <div class="alert alert-danger d-flex align-items-center search-alert" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                    <div>No se encontraron resultados para esta búsqueda.</div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="row justify-content-around">
+                    <div class="card col-md-3 packs" v-for="pack in searchPacks">
+                        <div class="card-body">
+                            <div v-if="pack.soap.id != 3" style="text-align: center;">
+                                <img :src="pack.soap.url" class="card-img-top" alt="Producto" style="margin-top: 1rem;">
+                                <button class="btn btn-secondary dropdown-toggle description" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Ver productos</button>
+                                <ul class="dropdown-menu products" aria-labelledby="dropdownMenuButton1">
+                                    <li class="row" style="margin-bottom: 1rem;">
+                                        <div class="col-4">
+                                            <img :src="pack.shampoo.url" alt="Producto" class="card-img-top-2">
+                                        </div>
+                                        <div class="col-8 align-self-center">
+                                            <p class="product-name">{{pack.shampoo.name}}</p>
+                                        </div>
+                                    </li>
+                                    <li class="row" style="margin-bottom: 1rem;">
+                                        <div class="col-4">
+                                            <img :src="pack.conditioner.url" alt="Producto" class="card-img-top-2">
+                                        </div>
+                                        <div class="col-8 align-self-center">
+                                            <p class="product-name">{{pack.conditioner.name}}</p>
+                                        </div>
+                                    </li>
+                                    <li class="row">
+                                        <div class="col-4">
+                                            <img :src="pack.soap.url" alt="Producto" class="card-img-top-2">
+                                        </div>
+                                        <div class="col-8 align-self-center">
+                                            <p class="product-name">{{pack.soap.name}}</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" v-if="pack.soap.id === 3">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img :src="pack.shampoo.url" class="card-img-top" alt="Producto">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img :src="pack.conditioner.url"class="card-img-top" alt="Producto">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Anterior</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Próximo</span>
+                                </button>
+                            </div>
+                            <div class="row" style="border-top: 3px solid #973b50; padding-top: 1rem;">
+                                <h5 class="card-title col-md-6">{{pack.code}}</h5>
+                                <h5 class="card-title col-md-6" style="text-align: right;">$ {{formatPrice(pack.price)}}</h5>
+                            </div>
+                            <p class="card-text">{{pack.namePack}}</p>
+                            <div class="request">
+                                <button type="button" class="btn btn-primary data-packs" data-bs-toggle="modal" data-bs-target="#pack">Solicitar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="pack" tabindex="-1" aria-labelledby="packLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="packLabel">Solicitar combo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <a href="https://www.facebook.com/hectoremmanuel.rolon" target="_blank" style="margin-right: .8rem;"><img class="social" src="../assets/facebook-modal.png" alt="Facebook"></a>
+                        <a href="https://m.me/hectoremmanuel.rolon" target="_blank" style="margin-right: .8rem;"><img class="social" src="../assets/messanger-modal.png" alt="Messanger"></a>
+                        <a href="https://wa.me/5491134254092" target="_blank" style="margin-right: .8rem;"><img class="social" src="../assets/whatsapp-modal.png" alt="WhatsApp"></a>
+                        <a href="mailto:emmanuelrolon250@gmail.com" style="margin-right: .8rem;"><img class="social" src="../assets/gmail-modal.png" alt="Email"></a>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary close-modal" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+<!-- PIE DE PÁGINA -->
+    <footer>
+        <section id="social">
+            <a href="https://www.facebook.com/hectoremmanuel.rolon" target="_blank" class="social-icon"><img class="social" src="../assets/facebook.png" alt="Facebook"></a>
+            <a href="https://m.me/hectoremmanuel.rolon" target="_blank" class="social-icon"><img class="social" src="../assets/messanger.png" alt="Messanger"></a>
+            <a href="https://www.instagram.com" target="_blank" class="social-icon"><img class="social" src="../assets/instagram.png" alt="Instagram"></a>
+            <a href="https://wa.me/5491134254092" target="_blank" class="social-icon-2"><img class="social" src="../assets/whatsapp.png" alt="WhatsApp"></a>
+        </section>
+        <section class="row g-0" id="information-nav">
+            <div class="col-md-6 align-self-center">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.0192764541443!2d-58.380944185195254!3d-34.60367406500191!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccace8cd0b1f1%3A0x918a315016aaff81!2sAv.%20Corrientes%20848%2C%20C1043%20AAV%2C%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1641302111734!5m2!1ses!2sar" width="100%" height="75%" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <nav class="navbar navbar-expand-lg col-md-3 align-self-start">
+                <div class="container-fluid position-relative">
+                    <div class="flex-shrink-0 position-relative top-0 start-50 translate-middle-x navbar-2">
+                        <p class="fs-5 fw-semibold title-nav-2">MENÚ</p>
+                        <ul class="list-unstyled ps-0">
+                            <!-- <li class="mb-1 footer">
+                                <a class="nav-link footer" href="men.html">Hombres</a>
+                            </li>
+                            <li class="mb-1 footer">
+                                <a class="nav-link footer" href="women.html">Mujeres</a>
+                            </li>
+                            <li class="mb-1 footer">
+                                <a class="nav-link footer" href="children.html">Niños/as</a>
+                            </li>
+                            <li class="mb-1 footer">
+                                <a class="nav-link footer" href="">Bebés</a>
+                            </li> -->
+                            <li class="mb-1 footer">
+                                <a class="nav-link footer" href="packs.html">Combos</a>
+                            </li>
+                            <li class="mb-1 footer">
+                                <a class="nav-link footer" href="contact.html">Contacto</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <nav class="navbar navbar-expand-lg col-md-3 align-self-start">
+                <div class="container-fluid position-relative">
+                    <div class="flex-shrink-0 position-relative top-0 start-50 translate-middle-x navbar-2">
+                        <p class="fs-5 fw-semibold title-nav-2">OTROS LINKS</p>
+                        <ul class="list-unstyled ps-0">
+                            <!-- <li class="mb-1 footer">
+                                <a class="nav-link footer" href="contact.html">Contacto</a>
+                            </li> -->
+                            <li class="mb-1 footer">
+                                <a class="nav-link footer" href="">Sobre nosotros</a>
+                            </li>
+                            <li class="nav-item dropdown" v-if="listClient.role == 'ADMIN'">
+                                <a class="nav-link footer" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Panel de administrador</a>
+                                <ul class="dropdown-menu shadow" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item go-to" href="../webManager/manager-clients.html">Clientes</a></li>
+                                    <li><a class="dropdown-item go-to" href="../webManager/manager-products.html">Productos</a></li>
+                                    <li><a class="dropdown-item go-to" href="../webManager/manager-packs.html">Combos</a></li>
+                                </ul>
+                            </li>
+                            <li class="mb-1 footer" v-if="listClient.role == 'ADMIN' || listClient.role == 'USER'">
+                                <a class="nav-link footer" href="" @click.prevent="signOut">Cerrar sesión <img src="../assets/logout.png" alt="Sign out"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </section>
+        <section id="copy-right">
+            <p id="footer-page">&copy; {{momentFooter(new Date())}} El mejor combo | Todos los derechos reservados.</p>
+        </section>
+    </footer>
+</div>
+<!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+<!-- VUE.JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../scripts/main.js"></script>
+</body>
+</html>

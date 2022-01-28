@@ -1,9 +1,6 @@
 package com.project.elmejorcombo.dtos;
 
-import com.project.elmejorcombo.models.Conditioner;
-import com.project.elmejorcombo.models.PackProduct;
-import com.project.elmejorcombo.models.Shampoo;
-import com.project.elmejorcombo.models.Soap;
+import com.project.elmejorcombo.models.*;
 
 public class PackProductDTO {
 
@@ -13,6 +10,7 @@ public class PackProductDTO {
     private Shampoo shampoo;
     private Conditioner conditioner;
     private Soap soap;
+    private PackClient typeClient;
     private double price;
 
 
@@ -26,6 +24,7 @@ public class PackProductDTO {
         this.shampoo = packProduct.getShampoo();
         this.conditioner = packProduct.getConditioner();
         this.soap = packProduct.getSoap();
+        this.typeClient = packProduct.getPack().getTypeClient();
         this.price = packProduct.getPack().getPrice();
     }
 
@@ -36,6 +35,7 @@ public class PackProductDTO {
     public Shampoo getShampoo() {return shampoo;}
     public Conditioner getConditioner() {return conditioner;}
     public Soap getSoap() {return soap;}
+    public PackClient getTypeClient() {return typeClient;}
     public double getPrice() {return price;}
 
     //SETTER
@@ -45,5 +45,6 @@ public class PackProductDTO {
     public void setShampoo(Shampoo shampoo) {this.shampoo = shampoo;}
     public void setConditioner(Conditioner conditioner) {this.conditioner = conditioner;}
     public void setSoap(Soap soap) {this.soap = soap;}
+    public void setTypeClient(PackClient typeClient) {this.typeClient = typeClient;}
     public void setPrice(double price) {this.price = price;}
 }

@@ -315,7 +315,7 @@
                                                     <li><p class="manager-products">{{shampoo.description}}</p></li>
                                                 </ul>
                                             </td>
-                                            <td style="padding-top: 1.3rem;">{{shampoo.price}}</td>
+                                            <td style="padding-top: 1.3rem;">{{formatPrice(shampoo.price)}}</td>
                                             <td style="padding-top: 1.3rem;">{{shampoo.stock}}</td>
                                             <td style="padding-top: 1.3rem;"><a :href="'data-shampoo.html?id=' + shampoo.id"><img src="../assets/view-details.png" alt="Detalles"></a></td>
                                         </tr>
@@ -374,7 +374,7 @@
                                                     <li><p class="manager-products">{{conditioner.description}}</p></li>
                                                 </ul>
                                             </td>
-                                            <td style="padding-top: 1.3rem;">{{conditioner.price}}</td>
+                                            <td style="padding-top: 1.3rem;">{{formatPrice(conditioner.price)}}</td>
                                             <td style="padding-top: 1.3rem;">{{conditioner.stock}}</td>
                                             <td style="padding-top: 1.3rem;"><a :href="'data-conditioner.html?id=' + conditioner.id"><img src="../assets/view-details.png" alt="Detalles"></a></td>
                                         </tr>

@@ -32,7 +32,6 @@ const app = Vue.createApp({
                     icon: "error"
                 })
                 .then(confrimation => {
-                    this.data.username = ""
                     this.data.password = ""
                 })
             })

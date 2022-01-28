@@ -46,7 +46,7 @@ const app = Vue.createApp({
             listPacks: [],
             listPackID: [],
             pack:{
-                code: "", namePack: "", idShampoo: "", idConditioner: "", idSoap:"", price: "", imgShampoo: "", imgConditioner: "", imgSoap: ""
+                code: "", namePack: "", idShampoo: "", idConditioner: "", idSoap:"", typeClient: "", price: "", imgShampoo: "", imgConditioner: "", imgSoap: ""
             },
             filterPack: [],
             searchPack: "",
@@ -617,13 +617,14 @@ const app = Vue.createApp({
                 this.pack.idShampoo = response.data.shampoo.id
                 this.pack.idConditioner = response.data.conditioner.id
                 this.pack.idSoap = response.data.soap.id
+                this.pack.typeClient = response.data.typeClient 
                 this.pack.price = response.data.price
                 this.pack.imgShampoo = response.data.shampoo.url
                 this.pack.imgConditioner = response.data.conditioner.url
                 this.pack.imgSoap = response.data.soap.url
             })
         },
-        addPack(){
+        addPackSCS(){
             swal({
                 title: "Confirmación",
                 text: "¿Está seguro de querer registrar este combo?",
@@ -637,6 +638,7 @@ const app = Vue.createApp({
                         idShampoo: this.pack.idShampoo,
                         idConditioner: this.pack.idConditioner,
                         idSoap: this.pack.idSoap,
+                        typeClient: this.pack.typeClient,
                         price: this.pack.price
                     })
                     .then(response => {
@@ -659,7 +661,44 @@ const app = Vue.createApp({
                 }
             })
         },
-        changeDataPack(){
+        addPackSC(){
+            swal({
+                title: "Confirmación",
+                text: "¿Está seguro de querer registrar este combo?",
+                icon: "warning",
+                buttons: true
+            })
+            .then(confirmation => {
+                if(confirmation){
+                    axios.post("/api/admin/packs",{
+                        namePack: this.pack.namePack,
+                        idShampoo: this.pack.idShampoo,
+                        idConditioner: this.pack.idConditioner,
+                        idSoap: 3,
+                        typeClient: this.pack.typeClient,
+                        price: this.pack.price
+                    })
+                    .then(response => {
+                        swal({
+                            title: "Datos guardados",
+                            icon: "success",
+                            button: true
+                        })
+                        .then(response =>{
+                            window.location.reload()
+                        })
+                    })
+                    .catch(error => {
+                        swal({
+                            title: "¡Atención!",
+                            text: error.response.data,
+                            icon: "error"
+                        })
+                    })
+                }
+            })
+        },
+        changeDataPackSCS(){
             const urlParams = new URLSearchParams(window.location.search);
             this.packID = urlParams.get("id");
 
@@ -676,6 +715,47 @@ const app = Vue.createApp({
                         idShampoo: this.pack.idShampoo,
                         idConditioner: this.pack.idConditioner,
                         idSoap: this.pack.idSoap,
+                        typeClient: this.pack.typeClient,
+                        price: this.pack.price
+                    })
+                    .then(response => {
+                        swal({
+                            title: "Datos guardados",
+                            icon: "success",
+                            button: true
+                        })
+                        .then(response =>{
+                            window.location.reload()
+                        })
+                    })
+                    .catch(error => {
+                        swal({
+                            title: "¡Atención!",
+                            text: error.response.data,
+                            icon: "error"
+                        })
+                    })
+                }
+            })
+        },
+        changeDataPackSC(){
+            const urlParams = new URLSearchParams(window.location.search);
+            this.packID = urlParams.get("id");
+
+            swal({
+                title: "Confirmación",
+                text: "¿Está seguro de querer guardar los nuevos datos?",
+                icon: "warning",
+                buttons: true
+            })
+            .then(confirmation => {
+                if(confirmation){
+                    axios.put(`/api/admin/packs/${this.packID}`,{
+                        namePack: this.pack.namePack,
+                        idShampoo: this.pack.idShampoo,
+                        idConditioner: this.pack.idConditioner,
+                        idSoap: 3,
+                        typeClient: this.pack.typeClient,
                         price: this.pack.price
                     })
                     .then(response => {
